@@ -3,6 +3,10 @@
     margin: 0;
 }
 
+body {
+    background-color: #6B7A8F;
+}
+
 .header {
     background-image: url('img/contact-bg.jpg');
     background-size: 100%;
@@ -10,7 +14,8 @@
     font-family: Arial, Helvetica, sans-serif;
     text-align: center;
     text-shadow: 1px 3px 10px rgba(0, 0, 0, 0.7);
-    padding: 100px;
+    padding: 150px;
+    box-shadow: 0px 0px 75px rgba(0, 0, 0, 0.7);;
 }
 
 .header h1 {
