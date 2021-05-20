@@ -5,9 +5,19 @@
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.1/css/all.css" crossorigin="anonymous">
     </head>
     <body>
-        <div class="search">
-            <input type="text" class="search-txt" placeholder="Search for a Contact"/>
-            <button type="button" class="search-btn" onclick="searchContact();"><i class="fas fa-search"></i></button>
+        <div class="inputs">
+            <div class="search">
+                <input type="text" class="txt" placeholder="Search for a Contact"/>
+                <button type="button" class="btn" onclick="searchContact();"><i class="fas fa-search"></i></button>
+                <span class="search-results"></span>
+                <p class="contact-list"></p>
+            </div>
+            <br/>
+            <div class="add">
+                <input type="text" class="txt" placeholder="Add a Contact"/>
+                <button type="button" class="btn" onclick="addContact();"><i class="fas fa-plus-circle"></i></button>
+                <span class="add-result"></span>
+            </div>
         </div>
     </body>
 </html>
