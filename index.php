@@ -2,7 +2,7 @@
 <html>
     <head>
         <title>Con-Tacks</title>
-        <link rel="stylesheet" href="main.css">
+        <link rel="stylesheet" href="css/main.css">
     </head>
     <body>
         <?php 
