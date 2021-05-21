@@ -56,3 +56,25 @@ function searchContact() {
         document.getElementById("search-results").innerHTML = err.message;
     }
 }
+
+function expandForm() {
+    var form = document.getElementById("expand-add");
+    var btn = document.getElementById('expand-add-btn');
+    if(form.style.display == 'block') {
+        form.style.display = 'none';
+    }
+    else {
+        form.style.display = 'block';
+    }
+}
+
+function expandSearch() {
+    var form = document.getElementById("expand-search");
+    var btn = document.getElementById('expand-search-btn');
+    if(form.style.display == 'block') {
+        form.style.display = 'none';
+    }
+    else {
+        form.style.display = 'block';
+    }
+}

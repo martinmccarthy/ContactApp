@@ -29,6 +29,7 @@ body {
 }
 
 .search {
+    display: none;
     left: 50px;
     padding: 0px;
     margin: 0;
@@ -75,4 +76,71 @@ body {
     width: 90%;
     border: none;
     height: 100%;
+}
+
+.expand-form {
+    display: none;
+    width: 75%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.expand-form input {
+    padding: 10px;
+    padding: 9px;
+    font-size: 16px;
+    float: left;
+    width: 100%;
+    border: none;
+    height: 50px;
+    border: 3px solid black;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.expand-btn {
+    position: relative;
+    padding: 0px;
+    font-size: 25px;
+    cursor: pointer;
+    border: none;
+    background: none;
+    color: white;
+}
+
+.expand-btn:before {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 2px;
+    bottom: 0;
+    left: 0;
+    background-color: white;
+    visibility: hidden;
+    transform: scaleX(0);
+    transition: all 0.3s ease-in-out;
+}
+
+.expand-btn:hover:before, .expand-btn:active:before {
+    visibility: visible;
+    transform: scaleX(1);
+}
+
+.submit-btn {
+    display: block;
+    padding: 10px;
+    width: 45%;
+    height: 50px;
+    font-size: 25px;
+    cursor: pointer;
+    outline: 3px solid black;
+    border: none;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.submit-btn:hover {
+    transition: .5s;
+    background: black;
+    color: white;
 }

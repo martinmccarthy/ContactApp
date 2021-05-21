@@ -7,16 +7,26 @@
     </head>
     <body>
         <div class="inputs">
-            <div class="search">
+            <div class="btn-options">
+                <button type="button" id="expand-search-btn" class="expand-btn" onclick="expandSearch();">SEARCH CONTACT</button>
+                <button type="button" id="expand-add-btn" class="expand-btn" onclick="expandForm();">ADD CONTACT</button>
+            </div>
+            <div class="search" id="expand-search">
                 <input type="text" class="txt" id="search-txt" placeholder="Search for a Contact"/>
-                <button type="button" class="btn" onclick="searchContact();"><i class="fas fa-search"></i></button>
+                <button type="button" class="btn" id="search-btn" onclick="searchContact();"><i class="fas fa-search"></i></button>
                 <span id="search-results"></span>
                 <p class="contact-list"></p>
             </div>
-            <br/>
-            <div class="add">
-                <input type="text" id="contact-txt" class="txt" placeholder="Add a Contact"/>
-                <button type="button" class="btn" onclick="addContact();"><i class="fas fa-plus-circle"></i></button>
+            <div class="new-contact">
+                <div class="expand-form" id="expand-add">
+                    <div class="centered">
+                        <input type="text" id="fname" class="txt" placeholder="First Name"/>
+                        <input type="text" id="lname" class="txt" placeholder="Last Name"/>
+                        <input type="text" id="email" class="txt" placeholder="Email"/>
+                        <input type="text" id="phone" class="txt" placeholder="Phone"/>
+                        <button type="button" class="submit-btn" onclick="addContact();">Submit</button>
+                    </div>
+                </div>
                 <span id="add-result"></span>
             </div>
         </div>
