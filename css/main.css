@@ -8,24 +8,37 @@ body {
 }
 
 .header {
-    background-image: url('img/contact-bg.jpg');
-    background-size: 100%;
-    background-repeat: no-repeat;
-    font-family: Arial, Helvetica, sans-serif;
-    text-align: center;
-    text-shadow: 1px 3px 10px rgba(0, 0, 0, 0.7);
-    padding: 150px;
-    box-shadow: 0px 0px 75px rgba(0, 0, 0, 0.7);;
+    overflow: hidden;
+    background-color: #242629;
+    padding: 20px 10px;
+    width: 100%;
+}
+
+.logo, .logout-btn {
+    display: inline;
+}
+
+.logout-btn {
+    float: right;
+    
 }
 
 .header h1 {
-    font-size: 100px;
+    text-align: center;
     color: white;
+    padding: 12px;
+    font-size: 40px;
+    line-height: 25px;
+    border-radius: 4px;
+    font-weight: bold;
 }
 
-.header p {
-    font-size: 18px;
-    color: white;
+.header h1:hover {
+    cursor: default;
+}
+
+.logout-btn {
+    display: inline;
 }
 
 .search {
@@ -106,6 +119,7 @@ body {
     border: none;
     background: none;
     color: white;
+    justify-content: center;
 }
 
 .expand-btn:before {
