@@ -20,7 +20,7 @@ body {
 
 .logout-btn {
     float: right;
-    
+
 }
 
 .header h1 {
@@ -156,5 +156,26 @@ body {
 .submit-btn:hover {
     transition: .5s;
     background: black;
+    color: white;
+}
+
+.home {
+    background-image: url('../img/contact-bg.jpg');
+    background-size: 100%;
+    background-repeat: no-repeat;
+    font-family: Arial, Helvetica, sans-serif;
+    text-align: center;
+    text-shadow: 1px 3px 10px rgba(0, 0, 0, 0.7);
+    padding: 150px;
+    box-shadow: 0px 0px 75px rgba(0, 0, 0, 0.7);;
+}
+
+.home h1 {
+    font-size: 100px;
+    color: white;
+}
+
+.home p {
+    font-size: 18px;
     color: white;
 }
