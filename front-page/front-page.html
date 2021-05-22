@@ -1,52 +1,44 @@
 <!DOCTYPE html>
-<html lang="en-US">
-<head>
-<title>Contacks</title>
-<!--- The link for the stylesheet is below-->
-<link rel="stylesheet" href="frontpage-style.css">
-</head>
+  <html lang="en-US">
+    <head>
+        <title>Contacks</title>
+            <!--- The link for the stylesheet is below-->
+            <link rel="stylesheet" href="frontpage-style.css">
+    </head>
+    <body>
+        <h1 id="main-header">Contacks</h1>
+        <!--Create an Account-->
+        <div id="create-acc-div" class="create-class">
+            <h2 id="create-header">Create an Account:</h2>
+            <label for="create-acc-email">Enter your email:</label><br>
+            <input type="text" id="create-acc-email" placeholder="Email"></input><br>
+            <br></br>
 
-<body>
+            <label for="create-acc-usr">Enter your username:</label><br>
+            <input type="text" id="create-acc-usr" placeholder="Username"></input><br>
+            <br></br>
 
-<h1 id="main-header">Contacks</h1>
+            <label for="create-acc-passwd">Enter your password:</label><br>
+            <input type="text" id="create-acc-passwd" placeholder="Password"></input><br>
+            <br></br>
 
-<!--Create an Account-->
+            <input type="button" id="create-button" value="Submit"></input><br>
+        </div>
 
-<div id="create-acc-div" class="create-class">
-<h2 id="create-header">Create an Account:</h2>
-<label for="create-acc-email">Enter your email:</label><br>
-<input type="text" id="create-acc-email" placeholder="Email"></input><br>
-<br></br>
+        <!--Existing Account Login-->
 
-<label for="create-acc-usr">Enter your username:</label><br>
-<input type="text" id="create-acc-usr" placeholder="Username"></input><br>
-<br></br>
+        <div id="existing-acc-div" class="existing-class">
+            <h2 id="existing-header">Existing members:</h2>
+            <label for="existing-usr">Enter your username:</label>
+            <input type="text" id="existing-acc" placeholder="Username"></input><br>
+            <br></br>
+            <label for="existing-passwd">Enter your password:</label>
+            <input type="text" id="existing-passwd" placeholder="Password"></input><br>
+            <br></br>
+            <input type="button" id="login-button" value="Login"></input><br>
+        </div>
 
-<label for="create-acc-passwd">Enter your password:</label><br>
-<input type="text" id="create-acc-passwd" placeholder="Password"></input><br>
-<br></br>
+        <div id="clear"></div>
 
-<input type="button" id="create-button" value="Submit"></input><br>
-
-</div>
-
-<!--Existing Account Login-->
-
-<div id="existing-acc-div" class="existing-class">
-<h2 id="existing-header">Existing members:</h2>
-<label for="existing-usr">Enter your username:</label>
-<input type="text" id="existing-acc" placeholder="Username"></input><br>
-<br></br>
-
-<label for="existing-passwd">Enter your password:</label>
-<input type="text" id="existing-passwd" placeholder="Password"></input><br>
-<br></br>
-
-<input type="button" id="login-button" value="Login"></input><br>
-
-</div>
-
-<div id="clear"></div>
-
-</body>
+    </body>
 </html>
