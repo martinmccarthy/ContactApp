@@ -3,12 +3,51 @@
     <head>
         <title>Con-Tacks</title>
         <link rel="stylesheet" href="css/main.css">
+        <link rel="stylesheet" href="css/login.css">
+
         <script type="text/javascript" src="js/code.js"></script>
     </head>
     <body style="height: 70000px;">
         <div class="home" id="home">
             <h1>Con-Tacks</h1>
             <p><p>A quick and useful tool for contact management.</p></p>
+        </div>
+        
+        <div class="inputs">
+            <div id="create-acc-div" class="create-class">
+                <h2 id="create-header">Create an Account</h2>
+
+                <div class="input-elements">
+                    <label for="create-acc-email">Enter your email:</label><br>
+                    <input type="text" id="create-acc-email" placeholder="Email"></input><br>
+                    <br></br>
+
+                    <label for="create-acc-usr">Enter your username:</label><br>
+                    <input type="text" id="create-acc-usr" placeholder="Username"></input><br>
+                    <br></br>
+
+                    <label for="create-acc-passwd">Enter your password:</label><br>
+                    <input type="text" id="create-acc-passwd" placeholder="Password"></input><br>
+                    <br></br>
+
+                    <input type="button" class="index-btns" id="create-button" value="Submit" onclick="doCreate();"></input><br>
+                </div>
+            </div>
+            <!--Existing Account Login-->
+            <div id="existing-acc-div" class="existing-class">
+                <h2 id="existing-header">Existing members</h2>
+                <div class="input-elements-login">
+                    <label for="existing-usr">Enter your username:</label>
+                    <input type="text" id="existing-acc" placeholder="Username"></input><br>
+                    <br></br>
+                    <label for="existing-passwd">Enter your password:</label>
+                    <input type="text" id="existing-passwd" placeholder="Password"></input><br>
+                    <br></br>
+                    <input type="button" class="index-btns" id="login-button" value="Login" onclick="doLogin();"></input><br>
+                </div>
+            </div>
+    
+            <div id="clear"></div>
         </div>
         
     </body>
