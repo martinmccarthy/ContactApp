@@ -8,30 +8,34 @@
         
         <link rel="stylesheet" href="css/main.css">
         <link rel="stylesheet" href="css/login.css">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.1/css/all.css" crossorigin="anonymous">
+        <style>
+            @import url('https://fonts.googleapis.com/css2?family=Lora&family=Poppins&display=swap');
+        </style> 
 
         <script type="text/javascript" src="js/code.js"></script>
     </head>
     <body style="height: 70000px;">
         <div class="home" id="home">
             <h1>Con-Tacks</h1>
-            <p><p>A quick and useful tool for contact management.</p></p>
+            <p>A quick and useful tool for contact management.</p>
         </div>
         
         <div class="inputs">
             <div id="create-acc-div" class="create-class">
                 <h2 id="create-header">Create an Account</h2>
-
+                <hr>
                 <div class="input-elements">
                     <label for="create-acc-email">Enter your email:</label><br>
-                    <input type="text" id="create-acc-email" placeholder="Email"></input><br>
+                    <input type="text" id="create-acc-email" placeholder="&#xf0e0 Email"></input><br>
                     <br></br>
 
                     <label for="create-acc-usr">Enter your username:</label><br>
-                    <input type="text" id="create-acc-usr" placeholder="Username"></input><br>
+                    <input type="text" id="create-acc-usr" placeholder="&#xf007 Username"><br>
                     <br></br>
 
                     <label for="create-acc-passwd">Enter your password:</label><br>
-                    <input type="text" id="create-acc-passwd" placeholder="Password"></input><br>
+                    <input type="text" id="create-acc-passwd" placeholder="&#xf084 Password"></input><br>
                     <br></br>
 
                     <input type="button" class="index-btns" id="create-button" value="Submit" onclick="doCreate();"></input><br>
@@ -40,6 +44,7 @@
             <!--Existing Account Login-->
             <div id="existing-acc-div" class="existing-class">
                 <h2 id="existing-header">Existing members</h2>
+                <hr>
                 <div class="input-elements-login">
                     <label for="existing-usr">Enter your username:</label>
                     <input type="text" id="existing-acc" placeholder="Username"></input><br>
