@@ -95,10 +95,13 @@ function readCookie()
 }
 
 function addContact() {
-    var newContact = document.getElementById("contact-txt").value;
-    document.getElementById("add-result").innerHTML = "";
+    var fName = document.getElementById("fname").value;
+    var lName = document.getElementById("lname").value;
+	var email = document.getElementById("email").value;
+	var phone = document.getElementById("phone").value;
+	document.getElementById("add-result").innerHTML = "";
 
-    var jsonPayload = '{"contact" : "' + newContact + '", "userId" : ' + userId + '}';
+    var jsonPayload = '{"firstName" : "' + fName + '", "lastName" : ' + lName + '", "email" : ' + email + '", "phone" : ' + phone + '", "userId" : ' + userId + '}';
     var url = urlBase + '/AddContact.php';
 
     var xhr = new XMLHttpRequest();
