@@ -15,7 +15,7 @@ function doLogin()
 
 //	var jsonPayload = '{"login" : "' + login + '", "password" : "' + hash + '"}';
 	var jsonPayload = '{"login" : "' + login + '", "password" : "' + password + '"}';
-	var url = urlBase + '/Login.' + extension;
+	var url = urlBase + '/Login.php';
 
 	var xhr = new XMLHttpRequest();
 	xhr.open("POST", url, true);
