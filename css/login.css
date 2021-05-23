@@ -10,6 +10,7 @@
     border: 5px solid rgba(0, 0, 0, .7);
     border-radius: 25%;
     margin: 20px;
+    margin-left: 100px;
   }
   
 #existing-acc-div {
@@ -18,6 +19,7 @@
     border: 5px solid rgba(0, 0, 0, .7);
     border-radius: 25%;
     margin: 20px;
+    margin-right: 100px;
 }
   
 .create-class {
@@ -28,6 +30,7 @@
 }
   
 .existing-class {
+    right: 100px;
     height: 500px;
     width: 500px;
     float: right;
@@ -39,6 +42,8 @@
 }
 
 #create-header, #existing-header {
+    font-family: 'Lora', serif;
+    font-weight: 500;
     margin-top: 10px;
     font-size: 45px;
 }
@@ -54,7 +59,7 @@ input[type=text] {
     font-size: 20px;
     margin-top: 10px;
     padding: 5px;
-    font-family: "Font Awesome 5 Free";
+    font-family: "Font Awesome 5 Free", 'Poppins', sans-serif;
     font-weight: 900;
 }
 
@@ -69,6 +74,7 @@ input[type=text] {
 }
 
 label {
+    font-family: 'Lora', serif;
     font-weight: 700;
     font-size: 20px;
 }
