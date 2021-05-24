@@ -156,6 +156,12 @@ function searchContact() {
 function expandForm() {
     var form = document.getElementById("expand-add");
     var btn = document.getElementById('expand-add-btn');
+
+	var searchBar = document.getElementById('expand-search');
+	if(searchBar.style.display != 'none') {
+		searchBar.style.display = 'none';
+	}
+
     if(form.style.display == 'block') {
         form.style.display = 'none';
     }
@@ -167,6 +173,13 @@ function expandForm() {
 function expandSearch() {
     var form = document.getElementById("expand-search");
     var btn = document.getElementById('expand-search-btn');
+
+	var add = document.getElementById('expand-add');
+
+	if(add.style.display != 'none') {
+		add.style.display = 'none';
+	}
+
     if(form.style.display == 'block') {
         form.style.display = 'none';
     }
