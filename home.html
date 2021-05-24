@@ -6,7 +6,7 @@
         <meta content="utf-8" http-equiv="encoding">
 
         <link rel="stylesheet" href="css/main.css">
-        <link rel="stylesheet" href="css/buttons.css">
+        <link rel="stylesheet" href="css/home.css">
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.1/css/all.css" crossorigin="anonymous">
         <style>
             @import url('https://fonts.googleapis.com/css2?family=Lora&family=Poppins&display=swap');
@@ -44,5 +44,23 @@
                 <span id="add-result"></span>
             </div>
         </div>
+        
+        <ul class="contact-ul">
+            <li class="listed-contacts">
+                <div class="contacts">
+                    <h1 class="contact-label">Name</h1>
+                    <h2 class="contact-info" id="contact-name">null</h2>
+                    <h1 class="contact-label">Email</h1>
+                    <h2 class="contact-info" id="contact-email">null</h2>
+                    <h1 class="contact-label">Phone Number</h1>
+                    <h2 class="contact-info" id="contact-phone">null</h2>
+                    <div class="contact-btn">
+                        <button type="button" class="edit-contact-btn" id="edit-contact-btn" onclick="editContact();"><i class="fas fa-edit"></i> Edit</button>
+                        <button type="button" class="delete-contact-btn" id="delete-contact-btn" onclick="deleteContact();"><i class="fas fa-trash-alt"></i> Delete</button>
+                    </div>
+                </div>
+            </li>
+        </ul>
+        
     </body>
 </html>
