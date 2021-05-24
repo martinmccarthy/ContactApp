@@ -1,29 +1,38 @@
 .inputs {
-    display: inline;
-    height: 500px;
-    width: 400px;
+    position: relative;
+    border: none;
+    font-size: 14px;
+    color: #ffffffcc;
+    width: 100%;
+}
+
+#input-content {
+    display: inline-block;
+    left: 50%;
+    background-color: #08AEEA;
+    background-image: linear-gradient(0deg, #08AEEA 0%, #2AF598 100%);    
+    border: none;
+    padding: 10px !important;
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.8);
+    box-shadow: 0px 0px 25px rgba(0, 0, 0, .15);
+    border-bottom-left-radius: 25px;
+    border-bottom-right-radius: 25px;
 }
 
 #create-acc-div {
-    background-color: rgba(211, 211, 211, .7);
-    padding: 40px;
-    border: 5px solid rgba(0, 0, 0, .7);
-    border-radius: 25%;
+    padding: 0;
     margin: 20px;
     margin-left: 100px;
   }
   
 #existing-acc-div {
-    background-color: rgba(211, 211, 211, .7);
-    padding: 40px;
-    border: 5px solid rgba(0, 0, 0, .7);
-    border-radius: 25%;
+    padding: 0;
     margin: 20px;
     margin-right: 100px;
 }
   
 .create-class {
-    height: 500px;
     width: 500px;
     float: left;
     padding: 15px;
@@ -31,7 +40,6 @@
   
 .existing-class {
     right: 100px;
-    height: 500px;
     width: 500px;
     float: right;
     padding: 15px;
@@ -42,10 +50,11 @@
 }
 
 #create-header, #existing-header {
-    font-family: 'Lora', serif;
-    font-weight: 500;
+    font-family: 'Poppins', sans-serif;
+    font-weight: bolder;
     margin-top: 10px;
     font-size: 45px;
+    text-shadow: 3px 4px 5px rgba(0, 0, 0, .15);
 }
 
 
@@ -53,14 +62,26 @@
     text-align: center;
 }
 
+::placeholder {
+    color: white;
+    opacity: 1;
+}
+
 input[type=text] {
-    width: 65%;
-    height: 40px;
+    text-decoration: none;
+    outline: none;
+    width: 100%;
+    height: 35px;
     font-size: 20px;
     margin-top: 10px;
     padding: 5px;
     font-family: "Font Awesome 5 Free", 'Poppins', sans-serif;
     font-weight: 900;
+    background: transparent;
+    border: none;
+    color: rgba(255, 255, 255, 1);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 0;
 }
 
 .input-elements {
@@ -70,7 +91,7 @@ input[type=text] {
 
 .input-elements-login {
     display: inherit;
-    margin-top: 14.5%;
+    margin-top: 7.5%;
 }
 
 label {
@@ -80,24 +101,32 @@ label {
 }
 
 .index-btns {
-    background-color: #fff;
+    background: #fff;
     padding: 10px;
     border: none;
     cursor: pointer;
     font-weight: 700;
     font-size: 20px;
     margin-top: -10px;
-    width: 100px;
+    width: 100%;
 }
 
 .index-btns:hover {
-    transition: .6s;
-    background-color: black;
+    transition: .8s;
+    background: black;
     color: white;
 }
 
 hr {
     margin-top: 10px;
-    border: 3px solid rgba(107, 122, 143, .5);
+    border: 3px solid white;
     border-radius: 5px;
+}
+
+.seperator {
+    color: white;
+    display: inline;
+    width: 100%;
+    padding-right: 15px;
+    padding-left: 15px;
 }

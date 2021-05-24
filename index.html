@@ -15,49 +15,55 @@
 
         <script type="text/javascript" src="js/code.js"></script>
     </head>
-    <body style="height: 70000px;">
+    <body>
         <div class="home" id="home">
             <h1>Con-Tacks</h1>
             <p>A quick and useful tool for contact management.</p>
         </div>
         
         <div class="inputs">
-            <div id="create-acc-div" class="create-class">
-                <h2 id="create-header">Create an Account</h2>
-                <hr>
-                <div class="input-elements">
-                    <label class="labels" for="create-acc-email">Enter an email:</label><br>
-                    <input type="text" id="create-acc-email" placeholder="&#xf0e0 Email"></input><br>
-                    <br></br>
-
-                    <label class="labels" for="create-acc-usr">Enter a username:</label><br>
-                    <input type="text" id="create-acc-usr" placeholder="&#xf007 Username"><br>
-                    <br></br>
-
-                    <label class="labels" for="create-acc-passwd">Enter a password:</label><br>
-                    <input type="text" id="create-acc-passwd" placeholder="&#xf023 Password"></input><br>
-                    <br></br>
-
-                    <input type="button" class="index-btns" id="create-button" value="Submit" onclick="doCreate();"></input><br>
-                </div>
-            </div>
-            <!--Existing Account Login-->
-            <div id="existing-acc-div" class="existing-class">
-                <h2 id="existing-header">Existing Members</h2>
-                <hr>
-                <div class="input-elements-login">
-                    <label class="labels" for="loginName">Enter your username:</label>
-                    <input type="text" id="loginName" placeholder="&#xf007 Username"></input><br>
-                    <br></br>
-                    <label class="labels" for="loginPassword">Enter your password:</label>
-                    <input type="text" id="loginPassword" placeholder="&#xf023 Password"></input><br>
-                    <br></br>
-                    <input type="button" class="index-btns" id="login-button" value="Login" onclick="doLogin();"></input><br>
-                </div>
-                <span id="loginResult"></span>
-            </div>
+            <div id="input-content">
+                <div id="create-acc-div" class="create-class">
+                    <h2 id="create-header">New to Con-Tacks? Sign up!</h2>
+                    <hr>
+                    <div class="input-elements">
+                        <input type="text" id="create-acc-email" placeholder="&#xf0e0 Email"></input><br>
+                        <br></br>
     
-            <div id="clear"></div>
+                        <input type="text" id="create-acc-fname" placeholder="&#xf2bb First Name"><br>
+                        <br></br>
+    
+                        <input type="text" id="create-acc-lname" placeholder="&#xf2bb Last Name"><br>
+                        <br></br>
+    
+                        <input type="text" id="create-acc-usr" placeholder="&#xf007 Username"><br>
+                        <br></br>
+    
+                        <input type="text" id="create-acc-passwd" placeholder="&#xf023 Password"></input><br>
+                        <br></br>
+    
+                        <input type="button" class="index-btns" id="create-button" value="Get Started" onclick="doCreate();"></input><br>
+                    </div>
+                </div>
+
+                <div class="seperator">
+                </div>
+                <!--Existing Account Login-->
+                <div id="existing-acc-div" class="existing-class">
+                    <h2 id="existing-header">Existing Member? Login!</h2>
+                    <hr>
+                    <div class="input-elements-login">
+                        <input type="text" id="loginName" placeholder="&#xf007 Username"></input><br>
+                        <br></br>
+                        <input type="text" id="loginPassword" placeholder="&#xf023 Password"></input><br>
+                        <br></br>
+                        <input type="button" class="index-btns" id="login-button" value="Login" onclick="doLogin();"></input><br>
+                    </div>
+                    <span id="loginResult"></span>
+                </div>
+        
+                <div id="clear"></div>
+            </div>
         </div>
         
     </body>

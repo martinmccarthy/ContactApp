@@ -1,5 +1,5 @@
 var userId = 0;
-var urlBase = "website.com";
+var urlBase = "contacks.club";
 
 function doLogin()
 {
