@@ -223,13 +223,19 @@ function flipContact(cardSide) {
 	
 	if(cardSide == 0) {
 		front.style.display = 'none'
+		card.classList.toggle('flip');
 		back.style.backfaceVisibility = 'visible';
 		back.style.display = 'block';
 	}
 	else if(cardSide == 1) {
 		back.style.display = 'none';
+		card.classList.toggle('flip');
 		front.style.backfaceVisibility = 'visible';
 		front.style.display = 'block';
 	}
-	card.classList.toggle('flip');
+	// card.classList.toggle('flip');
+}
+
+function saveContact() {
+	flipContact(1);
 }
