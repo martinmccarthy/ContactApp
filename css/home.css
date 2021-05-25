@@ -1,5 +1,5 @@
 .card {
-    height: 400px;
+    height: 420px;
     width: 600px;
     background: #c9d6ff; /* fallback for old browsers */
     background: -webkit-linear-gradient(to top, #c9d6ff, #e2e2e2); /* Chrome 10-25, Safari 5.1-6 */
@@ -22,7 +22,7 @@
 
 .contact-front, .contact-back {
     transform-style: preserve-3d;
-    transition: .6s;
+    transition: 1s;
 }
 
 .contact-front {
@@ -33,6 +33,7 @@
 }
 
 .contact-back {
+    overflow: hidden;
     height: 100%;
     width: 100%;
     backface-visibility: hidden;
@@ -71,7 +72,7 @@
     text-align: center;
 }
 
-.edit-contact-btn, .delete-contact-btn {
+.edit-contact-btn, .delete-contact-btn, .save-contact-btn {
     padding: 15px;
     font-family: 'Poppins', sans-serif;
     font-size: 20px;
@@ -81,7 +82,11 @@
     cursor: pointer;
 }
 
-.edit-contact-btn:hover,  .delete-contact-btn:hover {
+.edit-contact-btn, .delete-contact-btn {
+    margin-top: 25px;
+}
+
+.edit-contact-btn:hover,  .delete-contact-btn:hover, .save-contact-btn:hover {
     transition: .5s;
     background: black;
     color: white;
@@ -127,4 +132,12 @@
 
 .delete-contact-btn {
     margin-left: 15px;
+}
+
+.save-contact-btn {
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    position: absolute;
+    left: 35%;
 }
