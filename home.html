@@ -12,6 +12,7 @@
             @import url('https://fonts.googleapis.com/css2?family=Lora&family=Poppins&display=swap');
         </style> 
 
+        <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
         <script type="text/javascript" src="js/code.js"></script>
     </head>
 
@@ -47,9 +48,9 @@
         
         <ul class="contact-ul">
             <li class="listed-contacts">
-                <div class="threed-wrapper">
+                <div class="container">
                     <div class="card" id="card">
-                        <div class="contacts" id="contact">
+                        <div class="contact-front" id="contact-front">
                             <h1 class="contact-label">Name</h1>
                             <h2 class="contact-info" id="contact-name">null</h2>
                             <h1 class="contact-label">Email</h1>
@@ -57,12 +58,12 @@
                             <h1 class="contact-label">Phone Number</h1>
                             <h2 class="contact-info" id="contact-phone">null</h2>
                             <div class="contact-btn">
-                                <button type="button" class="edit-contact-btn" id="edit-contact-btn" onclick="flipContact();"><i class="fas fa-edit"></i> Edit</button>
+                                <button type="button" class="edit-contact-btn" id="edit-contact-btn" onclick="flipContact(0);"><i class="fas fa-edit"></i> Edit</button>
                                 <button type="button" class="delete-contact-btn" id="delete-contact-btn" onclick="deleteContact();"><i class="fas fa-trash-alt"></i> Delete</button>
                             </div>
                         </div>
                         <div class="contact-back" id="contact-back">
-                            <button type="button" id="cancel-btn" class="cancel-btn" onclick="flipContact();"><i class="far fa-times-circle"></i></button>
+                            <button type="button" id="cancel-btn" class="cancel-btn" onclick="flipContact(1);"><i class="far fa-times-circle"></i></button>
                             <h1 class="contact-label-edit">First Name</h1>
                             <input type="text" class="edit-input" id="edit-fname" placeholder="&#xf2bb First Name">
                             <h1 class="contact-label-edit">Last Name</h1>
