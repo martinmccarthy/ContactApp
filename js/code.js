@@ -216,15 +216,20 @@ function scrollHandler() {
 
 window.addEventListener('scroll', scrollHandler);
 
-function flipContact() {
+function flipContact(cardSide) {
 	var card = document.getElementById('card');
-	var front = document.getElementById('contact');
+	var front = document.getElementById('contact-front');
 	var back = document.getElementById('contact-back')
 	
-	card.classList.toggle('flipped');
-	if(front.style.display == 'contents') {
-		front.style.display = 'none';
-		back.style.display = 'contents';
+	if(cardSide == 0) {
+		front.style.display = 'none'
+		back.style.backfaceVisibility = 'visible';
+		back.style.display = 'block';
 	}
-	
+	else if(cardSide == 1) {
+		back.style.display = 'none';
+		front.style.backfaceVisibility = 'visible';
+		front.style.display = 'block';
+	}
+	card.classList.toggle('flip');
 }
