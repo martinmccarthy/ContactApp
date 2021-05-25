@@ -215,3 +215,16 @@ function scrollHandler() {
 }
 
 window.addEventListener('scroll', scrollHandler);
+
+function flipContact() {
+	var card = document.getElementById('card');
+	var front = document.getElementById('contact');
+	var back = document.getElementById('contact-back')
+	
+	card.classList.toggle('flipped');
+	if(front.style.display == 'contents') {
+		front.style.display = 'none';
+		back.style.display = 'contents';
+	}
+	
+}

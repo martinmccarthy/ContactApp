@@ -47,16 +47,31 @@
         
         <ul class="contact-ul">
             <li class="listed-contacts">
-                <div class="contacts">
-                    <h1 class="contact-label">Name</h1>
-                    <h2 class="contact-info" id="contact-name">null</h2>
-                    <h1 class="contact-label">Email</h1>
-                    <h2 class="contact-info" id="contact-email">null</h2>
-                    <h1 class="contact-label">Phone Number</h1>
-                    <h2 class="contact-info" id="contact-phone">null</h2>
-                    <div class="contact-btn">
-                        <button type="button" class="edit-contact-btn" id="edit-contact-btn" onclick="editContact();"><i class="fas fa-edit"></i> Edit</button>
-                        <button type="button" class="delete-contact-btn" id="delete-contact-btn" onclick="deleteContact();"><i class="fas fa-trash-alt"></i> Delete</button>
+                <div class="threed-wrapper">
+                    <div class="card" id="card">
+                        <div class="contacts" id="contact">
+                            <h1 class="contact-label">Name</h1>
+                            <h2 class="contact-info" id="contact-name">null</h2>
+                            <h1 class="contact-label">Email</h1>
+                            <h2 class="contact-info" id="contact-email">null</h2>
+                            <h1 class="contact-label">Phone Number</h1>
+                            <h2 class="contact-info" id="contact-phone">null</h2>
+                            <div class="contact-btn">
+                                <button type="button" class="edit-contact-btn" id="edit-contact-btn" onclick="flipContact();"><i class="fas fa-edit"></i> Edit</button>
+                                <button type="button" class="delete-contact-btn" id="delete-contact-btn" onclick="deleteContact();"><i class="fas fa-trash-alt"></i> Delete</button>
+                            </div>
+                        </div>
+                        <div class="contact-back" id="contact-back">
+                            <button type="button" id="cancel-btn" class="cancel-btn" onclick="flipContact();"><i class="far fa-times-circle"></i></button>
+                            <h1 class="contact-label-edit">First Name</h1>
+                            <input type="text" class="edit-input" id="edit-fname" placeholder="&#xf2bb First Name">
+                            <h1 class="contact-label-edit">Last Name</h1>
+                            <input type="text" class="edit-input" id="edit-lname" placeholder="&#xf2bb Last Name">
+                            <h1 class="contact-label-edit">Email</h1>
+                            <input type="text" class="edit-input" id="edit-email" placeholder="&#xf0e0 Email">
+                            <h1 class="contact-label-edit">Phone Number</h1>
+                            <input type="text" class="edit-input" id="edit-phone" placeholder="&#xf879 Phone Number">
+                        </div>
                     </div>
                 </div>
             </li>
