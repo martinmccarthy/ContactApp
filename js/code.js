@@ -322,9 +322,12 @@ function flipContact(cardSide) {
 
 function saveContact() {
 	flipContact(1);
+<<<<<<< HEAD
 }
 
 
 function dropBtnToggle() {
 	document.getElementById("myDropdown").classList.toggle("show");
+=======
+>>>>>>> c3e866254ae2faf70496c8638bb31eb31e5edb03
 }
