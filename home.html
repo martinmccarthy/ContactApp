@@ -46,38 +46,44 @@
             </div>
         </div>
         
-        <ul class="contact-ul">
-            <li class="listed-contacts">
-                <div class="container">
+        <div class="table">
+            <ul class="contact-ul", id="contact-ul">
+            </ul>
+        </div>
+        
+
+        <script id="new-card" type="text/html">
+            <div class="container">
                     <div class="card" id="card">
-                        <div class="contact-front" id="contact-front">
-                            <h1 class="contact-label">Name</h1>
-                            <h2 class="contact-info" id="contact-name">null</h2>
-                            <h1 class="contact-label">Email</h1>
-                            <h2 class="contact-info" id="contact-email">null</h2>
-                            <h1 class="contact-label">Phone Number</h1>
-                            <h2 class="contact-info" id="contact-phone">null</h2>
-                            <div class="contact-btn">
-                                <button type="button" class="edit-contact-btn" id="edit-contact-btn" onclick="flipContact(0);"><i class="fas fa-edit"></i> Edit</button>
-                                <button type="button" class="delete-contact-btn" id="delete-contact-btn" onclick="deleteContact();"><i class="fas fa-trash-alt"></i> Delete</button>
+                        <div class="assigner">
+                            <div class="contact-front" id="contact-front">
+                                <h1 class="contact-label">Name</h1>
+                                <h2 class="contact-info" id="contact-name-">null</h2>
+                                <h1 class="contact-label">Email</h1>
+                                <h2 class="contact-info" id="contact-email-">null</h2>
+                                <h1 class="contact-label">Phone Number</h1>
+                                <h2 class="contact-info" id="contact-phone-">null</h2>
+                                <div class="contact-btn">
+                                    <button type="button" class="edit-contact-btn" id="edit-contact-btn" onclick="flipContact(0);"><i class="fas fa-edit"></i> Edit</button>
+                                    <button type="button" class="delete-contact-btn" id="delete-contact-btn" onclick="deleteContact();"><i class="fas fa-trash-alt"></i> Delete</button>
+                                </div>
                             </div>
-                        </div>
-                        <div class="contact-back" id="contact-back">
-                            <button type="button" id="cancel-btn" class="cancel-btn" onclick="flipContact(1);"><i class="far fa-times-circle"></i></button>
-                            <h1 class="contact-label-edit">First Name</h1>
-                            <input type="text" class="edit-input" id="edit-fname" placeholder="&#xf2bb First Name">
-                            <h1 class="contact-label-edit">Last Name</h1>
-                            <input type="text" class="edit-input" id="edit-lname" placeholder="&#xf2bb Last Name">
-                            <h1 class="contact-label-edit">Email</h1>
-                            <input type="text" class="edit-input" id="edit-email" placeholder="&#xf0e0 Email">
-                            <h1 class="contact-label-edit">Phone Number</h1>
-                            <input type="text" class="edit-input" id="edit-phone" placeholder="&#xf879 Phone Number">
-                            <button type="button" class="save-contact-btn" id="save-contact-btn" onclick="saveContact();"><i class="fas fa-check"></i> Save</button>
+                            <div class="contact-back" id="contact-back">
+                                <button type="button" id="cancel-btn" class="cancel-btn" onclick="flipContact(1);"><i class="far fa-times-circle"></i></button>
+                                <h1 class="contact-label-edit">First Name</h1>
+                                <input type="text" class="edit-input" id="edit-fname" placeholder="&#xf2bb First Name">
+                                <h1 class="contact-label-edit">Last Name</h1>
+                                <input type="text" class="edit-input" id="edit-lname" placeholder="&#xf2bb Last Name">
+                                <h1 class="contact-label-edit">Email</h1>
+                                <input type="text" class="edit-input" id="edit-email" placeholder="&#xf0e0 Email">
+                                <h1 class="contact-label-edit">Phone Number</h1>
+                                <input type="text" class="edit-input" id="edit-phone" placeholder="&#xf879 Phone Number">
+                                <button type="button" class="save-contact-btn" id="save-contact-btn" onclick="saveContact();"><i class="fas fa-check"></i> Save</button>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </li>
-        </ul>
-        
+        </script>
+
     </body>
 </html>

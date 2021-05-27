@@ -5,6 +5,8 @@
 }
 
 body {
+    height: 100%;
+    width: 100%;
     background-color: #08AEEA;
     background-image: linear-gradient(0deg, #08AEEA 0%, #2AF598 100%);    
     background-repeat: no-repeat;
@@ -51,6 +53,7 @@ body {
 }
 
 .search {
+    z-index: -1;
     display: none;
     margin-top: 50px;
     margin-left: auto;
@@ -63,6 +66,7 @@ body {
 }
 
 .add {
+    z-index: -1;
     left: 50px;
     top: 50px;
     padding: 0px;
@@ -104,7 +108,7 @@ body {
     padding: 10px;
     border-radius: 25px;
     box-shadow: 0px 8.5px 10px rgba(0, 0, 0, .3);
-    z-index: 1;
+    z-index: 5;
 }
 
 .txt {
@@ -117,6 +121,7 @@ body {
 }
 
 .expand-form {
+    z-index: -1;
     display: none;
     width: 75%;
     margin-left: auto;
