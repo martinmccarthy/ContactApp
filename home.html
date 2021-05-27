@@ -26,10 +26,16 @@
                 <button type="button" id="expand-add-btn" class="expand-btn" onclick="expandForm();">ADD CONTACT</button>
             </div>
             <div class="search" id="expand-search">
-                <input type="text" class="txt" id="search-txt" placeholder="Search for a Contact"/>
-                <button type="button" class="btn" id="search-btn" onclick="searchContact();"><i class="fas fa-search"></i></button>
-                <span id="search-results"></span>
-                <p class="contact-list"></p>
+              <select id="dropdown-list">
+                  <option value="Categories" selected>Categories</option>
+                  <option value="First Name">First Name</option>
+                  <option value="Last Name">Last Name</option>
+                  <option value="Email">Email</option>
+              </select>
+              <input type="text" class="txt" id="search-txt" placeholder="Search for a Contact"/>
+              <button type="button" class="btn" id="search-btn" onclick="searchContact();"><i class="fas fa-search"></i></button>
+              <span id="search-results"></span>
+              <p class="contact-list"></p>
             </div>
             <div class="new-contact">
                 <div class="expand-form" id="expand-add">

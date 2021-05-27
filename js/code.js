@@ -1,11 +1,10 @@
 var userId = 0;
 var urlBase = "contacks.club";
 
-var userId = 0;
 var firstName = "";
 var lastName = "";
 var userEmail = "";
-var password
+var password = "";
 
 function doLogin()
 {
