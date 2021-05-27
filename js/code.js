@@ -78,10 +78,10 @@ function doCreate()
 	var passwd = document.getElementById("create-acc-passwd").value;
 
 	var jsonPayload = '{"email" : "' + email
-	 + '", "first name" : "' + fname
-	  + '", "last name" : "' + lname
-		 + '", "username" : "' + userId
-		  + '", "password" : "' + passwd + '"}';
+	 + '", "FirstName" : "' + fname
+	  + '", "LastName" : "' + lname
+		 + '", "Login" : "' + userId
+		  + '", "Password" : "' + passwd + '"}';
 
 	var url = urlBase + '/Register.php';
 
@@ -163,7 +163,7 @@ function addContact() {
 	var id = contactId; // find out how to pull this
 
 
-	li.setAttribute('id', "listed-contacts");
+	li.setAttribute('id', "li-" + id);
 	li.setAttribute('class', "listed-contacts");
 	li.innerHTML = document.getElementById("new-card").innerHTML;
 
@@ -173,15 +173,23 @@ function addContact() {
 	var contactEmail = document.getElementById("contact-email-");
 	var contactPhone = document.getElementById("contact-phone-");
 
+	var contactCard = document.getElementById("card-");
+	var contactFront = document.getElementById("contact-front-");
+	var contactBack = document.getElementById("contact-back-");
 
 	contactName.setAttribute('id', "contact-name-" + id);
 	contactEmail.setAttribute('id', "contact-email-" + id);
 	contactPhone.setAttribute('id', "contact-phone-" + id);
 
+	contactCard.setAttribute('id', "card-" + id);
+	contactFront.setAttribute('id', "contact-front-card-" + id);
+	contactBack.setAttribute('id', "contact-back-card-" + id);
+
 	document.getElementById("contact-name-" + id).innerHTML = fName + " " + lName;
 	document.getElementById("contact-email-" + id).innerHTML = email;
 	document.getElementById("contact-phone-" + id).innerHTML = phone;
 
+	document.addContactForm.reset(); 
 	//ul.appendChild(li);
 
     var jsonPayload = '{"firstName" : "' + fName + '", "lastName" : ' + lName + '", "email" : ' + email + '", "phone" : ' + phone + '", "ContactID" : ' + contactId + '}';
@@ -300,31 +308,53 @@ function scrollHandler() {
 
 window.addEventListener('scroll', scrollHandler);
 
-function flipContact(cardSide) {
-	var card = document.getElementById('card');
-	var front = document.getElementById('contact-front');
-	var back = document.getElementById('contact-back')
+function editContact() {
+
+}
+
+function deleteContact(contactId) {
+	document.getElementById($(contactId).attr("id")).remove();
+	//console.log(li.parent);
+
+	//var ul = document.getElementById("contact-ul");
+	//ul.removeChild(li);
+}
+
+function flipContact(cardSide, contactToFlip) {
+	contactToFlip = $(contactToFlip).attr("id");
+	var card = document.getElementById(contactToFlip);
+	var front = document.getElementById('contact-front-' + contactToFlip);
+	var back = document.getElementById('contact-back-' + contactToFlip)
 	
 	if(cardSide == 0) {
 		front.style.display = 'none'
-		card.classList.toggle('flip');
 		back.style.backfaceVisibility = 'visible';
 		back.style.display = 'block';
+		editContact();
 	}
 	else if(cardSide == 1) {
 		back.style.display = 'none';
-		card.classList.toggle('flip');
+
 		front.style.backfaceVisibility = 'visible';
 		front.style.display = 'block';
 	}
-	// card.classList.toggle('flip');
 }
 
-function saveContact() {
-	flipContact(1);
+function saveContact(contactToFlip) {
+	flipContact(1, contactToFlip);
 }
 
 
 function dropBtnToggle() {
 	document.getElementById("myDropdown").classList.toggle("show");
 }
+
+function getStyleSheet(unique_title) {
+	for (var i=0; i<document.styleSheets.length; i++) {
+	  var sheet = document.styleSheets[i];
+	  if (sheet.title == unique_title) {
+		return sheet;
+	  }
+	}
+  }
+  

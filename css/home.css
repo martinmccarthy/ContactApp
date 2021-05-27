@@ -16,7 +16,7 @@
     overflow: hidden;
 }
 
-.card.flip {
+.flip {
     transform: rotateY(180deg);
 }
 
@@ -29,7 +29,7 @@
     position: absolute;
     height: 100%;
     width: 90%;
-    transform: rotateY(0deg);
+    backface-visibility: hidden;
 }
 
 .contact-back {
@@ -37,7 +37,7 @@
     height: 100%;
     width: 100%;
     backface-visibility: hidden;
-    transform: rotateY(180deg);
+    display: none;
 }
 
 .contact-label {
@@ -154,6 +154,6 @@ ul {
 .listed-contacts {
     display: inline;
     text-align: center;
-    padding: 10px;
     float: left;
+    padding-inline: 10px;
 }
