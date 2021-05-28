@@ -8,7 +8,6 @@ var lastName = "";
 var userEmail = "";
 var password = "";
 
-
 function doLogin()
 {
 	userId = 0;
