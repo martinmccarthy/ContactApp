@@ -28,6 +28,14 @@
                 <button type="button" id="expand-add-btn" class="expand-btn" onclick="expandForm();">ADD CONTACT</button>
             </div>
             <div class="search" id="expand-search">
+                <div class="category" id="categories-btn">
+                    <select id="dropdown-list">
+                        <option value="Categories" selected>Categories</option>
+                        <option value="First Name">First Name</option>
+                        <option value="Last Name">Last Name</option>
+                        <option value="Email">Email</option>
+                    </select>
+                </div>
                 <input type="text" class="txt" id="search-txt" placeholder="Search for a Contact"/>
                 <button type="button" class="btn" id="search-btn" onclick="searchContact();"><i class="fas fa-search"></i></button>
                 <span id="search-results"></span>
@@ -55,7 +63,7 @@
             </ul>
         </div>
 
-        <script id="new-card" type="text/html">                    
+        <script id="new-card" type="text/html">
             <div class="container">
                 <div class="card" id="card-">
                     <div class="assigner">
