@@ -111,13 +111,8 @@ function saveCookie()
 {
 	var minutes = 20;
 	var date = new Date();
-<<<<<<< HEAD
 	date.setTime(date.getTime()+(minutes*60*1000));
-	document.cookie = "firstName=" + firstName + ",lastName=" + lastName + ",userId=" + userId + ";expires=" + date.toGMTString();
-=======
-	date.setTime(date.getTime()+(minutes*60*1000));	
 	document.cookie = "FirstName=" + firstName + ",LastName=" + lastName + ";expires=" + date.toGMTString();
->>>>>>> 1963550c0703dbb7f0209235ba8ff73d00d86c04
 }
 
 function readCookie()
