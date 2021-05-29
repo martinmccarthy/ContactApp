@@ -110,7 +110,7 @@ function saveCookie()
 {
 	var minutes = 20;
 	var date = new Date();
-	date.setTime(date.getTime()+(minutes*60*1000));	
+	date.setTime(date.getTime()+(minutes*60*1000));
 	document.cookie = "firstName=" + firstName + ",lastName=" + lastName + ",userId=" + userId + ";expires=" + date.toGMTString();
 }
 
@@ -188,7 +188,7 @@ function addContact() {
 	document.getElementById("contact-email-" + id).innerHTML = email;
 	document.getElementById("contact-phone-" + id).innerHTML = phone;
 
-	document.addContactForm.reset(); 
+	document.addContactForm.reset();
 	//ul.appendChild(li);
 
     var jsonPayload = '{"firstName" : "' + fName + '", "lastName" : ' + lName + '", "email" : ' + email + '", "phone" : ' + phone + '", "ContactID" : ' + contactId + '}';
@@ -201,7 +201,7 @@ function addContact() {
         xhr.onreadystatechange = function() {
             if(this.readyState == 4 && this.status == 200) {
                 document.getElementById("add-result").innerHTML = "Contact Added";
-				
+
             }
         };
         xhr.send(jsonPayload);
@@ -284,17 +284,17 @@ function fadeOutOnScroll(element) {
 	if (!element) {
 		return;
 	}
-	
+
 	var distanceToTop = window.pageYOffset + element.getBoundingClientRect().top;
 	var elementHeight = element.offsetHeight;
 	var scrollTop = document.documentElement.scrollTop;
-	
+
 	var opacity = 1;
-	
+
 	if (scrollTop > distanceToTop) {
 		opacity = 1 - (scrollTop - distanceToTop) / elementHeight;
 	}
-	
+
 	if (opacity >= 0) {
 		element.style.opacity = opacity;
 	}
@@ -313,7 +313,9 @@ function editContact() {
 
 function deleteContact(contactId) {
 	document.getElementById($(contactId).attr("id")).remove();
+	//document.getElementById($("id:li-id")).remove();
 	//console.log(li.parent);
+	// id.remove();
 
 	//var ul = document.getElementById("contact-ul");
 	//ul.removeChild(li);
@@ -324,7 +326,7 @@ function flipContact(cardSide, contactToFlip) {
 	var card = document.getElementById(contactToFlip);
 	var front = document.getElementById('contact-front-' + contactToFlip);
 	var back = document.getElementById('contact-back-' + contactToFlip)
-	
+
 	if(cardSide == 0) {
 		front.style.display = 'none'
 		back.style.backfaceVisibility = 'visible';
@@ -343,6 +345,30 @@ function saveContact(contactToFlip) {
 	flipContact(1, contactToFlip);
 }
 
+function predictor() {
+
+	// Gotta make sure that you can actually access the cards
+	// as they appear from the database.
+
+	var i, div, txt;
+	var input = document.getElementById('search-txt');
+	var filter = input.value.toUpperCase();
+	var ul = document.getElementById('contact-ul');
+	var li = ul.getElementsByTagName('li');
+
+	for (i = 0; i < li.length; i++)
+	{
+		div = li[i].getElementsByTagName("div")[0];
+		txt = div.textContent || div.innerText;
+		if (txt.toUpperCase().indexOf(filter) > -1) {
+			li[i].style.display = "";
+		}
+		else {
+			li[i].style.display = "none";
+		}
+	}
+}
+
 
 function dropBtnToggle() {
 	document.getElementById("myDropdown").classList.toggle("show");
@@ -356,4 +382,3 @@ function getStyleSheet(unique_title) {
 	  }
 	}
   }
-  
