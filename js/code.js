@@ -22,7 +22,7 @@ function doLogin()
 
 	var jsonPayload = '{"login" : "' + login + '", "password" : "' + hash + '"}';
 //	var jsonPayload = '{"login" : "' + login + '", "password" : "' + password + '"}';
-	var url = urlBase + '/Login.php';
+	var url = '/Login.php';
 
 	var xhr = new XMLHttpRequest();
 	xhr.open("POST", url, true);
@@ -82,7 +82,7 @@ function doCreate()
 		 + '", "Login" : "' + userId
 		  + '", "Password" : "' + passwd + '"}';
 
-	var url = urlBase + '/Register.php';
+	var url = '/LAMPAPI/Register.php';
 
 	var xhr = new XMLHttpRequest();
 	xhr.open("POST", url, true);
@@ -101,6 +101,7 @@ function doCreate()
 	}
 	catch(err)
 	{
+		console.log("test");
 		document.getElementById("createAccResult").innerHTML = err.message;
 	}
 }
@@ -111,7 +112,7 @@ function saveCookie()
 	var minutes = 20;
 	var date = new Date();
 	date.setTime(date.getTime()+(minutes*60*1000));	
-	document.cookie = "firstName=" + firstName + ",lastName=" + lastName + ",userId=" + userId + ";expires=" + date.toGMTString();
+	document.cookie = "FirstName=" + firstName + ",LastName=" + lastName + ";expires=" + date.toGMTString();
 }
 
 function readCookie()
@@ -127,11 +128,11 @@ function readCookie()
 		{
 			firstName = tokens[1];
 		}
-		else if( tokens[0] == "lastName" )
+		else if( tokens[0] == "LastName" )
 		{
 			lastName = tokens[1];
 		}
-		else if( tokens[0] == "userId" )
+		else if( tokens[0] == "UserId" )
 		{
 			userId = parseInt( tokens[1].trim() );
 		}
