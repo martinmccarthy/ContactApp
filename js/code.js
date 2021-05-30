@@ -1,12 +1,13 @@
 var urlBase = "www.contacks.club";
 var contactId = 0;
-
+var searchVal = 0;
 
 var userId = 0;
 var firstName = "";
 var lastName = "";
 var userEmail = "";
 var password = "";
+var phone = "";
 
 function doLogin()
 {
@@ -212,13 +213,50 @@ function addContact() {
     }
 }
 
+function searchField(searchValue) {
+	if (searchValue == 0)
+		searchVal = 0;
+
+	else if (searchValue == 1)
+		searchVal = 1;
+
+	else if (searchValue == 2)
+		searchVal = 2;
+
+	else if (searchValue == 3)
+		searchVal = 3;
+}
+
 function searchContact() {
-    var srch = document.getElementById("search-txt").value;
+		var jsonPayload, name;
+
+		var fname = document.getElementById("create-acc-fname").value;
+		var lname = document.getElementById("create-acc-lname").value;
+		var email = document.getElementById("create-acc-email").value;
+
+
+		var srch = document.getElementById("search-txt").value;
     document.getElementById("search-results").innerHTML = "";
 
     var contactList = "";
 
-    var jsonPayload = '{"search" : "' + srch + '","userId" : ' + userId + '}';
+		if (searchVal == 0)
+			jsonPayload = '{"search" : "' + srch + '","firstName" : ' + fname + '}';
+
+		else if (searchVal == 1)
+			jsonPayload = '{"search" : "' + srch + '","lastName" : ' + lname + '}';
+
+		else if (searchVal == 2)
+			jsonPayload = '{"search" : "' + srch + '","email" : ' + email + '}';
+
+		else if (searchVal == 2)
+			jsonPayload = '{"search" : "' + srch + '","phone" : ' + phone + '}';
+
+		else
+			jsonPayload = '{"search" : "' + srch + '","userId" : ' + fname + '}';
+
+    // var jsonPayload = '{"search" : "' + srch + '","userId" : ' + userId + '}';
+
     var url = urlBase + '/SearchContacts.php';
 
     var xhr = new XMLHttpRequest();
@@ -372,7 +410,24 @@ function predictor() {
 
 
 function dropBtnToggle() {
-	document.getElementById("myDropdown").classList.toggle("show");
+	document.getElementById('dropdown-list').classList.toggle('show');
+}
+
+function displayOnClick(idValue) {
+	document.getElementById('cat-btn').innerHTML = idValue;
+}
+
+window.onclick = function(event) {
+  if (!event.target.matches('.dropdown-btn')) {
+    var dropdowns = document.getElementsByClassName("dropdown-content");
+    var i;
+    for (i = 0; i < dropdowns.length; i++) {
+      var openDropdown = dropdowns[i];
+      if (openDropdown.classList.contains('show')) {
+        openDropdown.classList.remove('show');
+      }
+    }
+  }
 }
 
 function getStyleSheet(unique_title) {
@@ -382,4 +437,4 @@ function getStyleSheet(unique_title) {
 		return sheet;
 	  }
 	}
-  }
+}

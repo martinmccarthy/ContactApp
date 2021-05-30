@@ -28,15 +28,18 @@
                 <button type="button" id="expand-add-btn" class="expand-btn" onclick="expandForm();">ADD CONTACT</button>
             </div>
             <div class="search" id="expand-search">
-                <div class="category" id="categories-btn">
-                    <select id="dropdown-list">
-                        <option value="Categories" selected>Categories</option>
-                        <option value="First Name">First Name</option>
-                        <option value="Last Name">Last Name</option>
-                        <option value="Email">Email</option>
-                    </select>
+                <div class="dropdown">
+                    <button class="dropdown-btn" id="cat-btn" onclick="dropBtnToggle();">Categories
+                      <!-- <i class="arrow down"></i> -->
+                    </button>
+                    <div class="dropdown-content" id="dropdown-list">
+                        <button class="list-btn" id="fname-btn" onclick="searchField(0);displayOnClick('First Name');">First Name</button>
+                        <button class="list-btn" id="lname-btn" onclick="searchField(1);displayOnClick('Last Name');">Last Name</button>
+                        <button class="list-btn" id="email-btn" onclick="searchField(2);displayOnClick('Email');">Email</button>
+                        <button class="list-btn" id="phone-btn" onclick="searchField(3);displayOnClick('Phone');">Phone</button>
+                    </div>
                 </div>
-                <input type="text" class="txt" id="search-txt" placeholder="Search for a Contact"/>
+                <input type="text" class="searching-txt" id="search-txt" placeholder="Search for a Contact"/>
                 <button type="button" class="btn" id="search-btn" onclick="searchContact();"><i class="fas fa-search"></i></button>
                 <span id="search-results"></span>
                 <p class="contact-list"></p>
@@ -69,11 +72,11 @@
                     <div class="assigner">
                         <div class="contact-front" id="contact-front-">
                             <h1 class="contact-label">Name</h1>
-                            <h2 class="contact-info" id="contact-name-">null</h2>
+                            <h2 class="contact-info" id="contact-name- contact-name">null</h2>
                             <h1 class="contact-label">Email</h1>
-                            <h2 class="contact-info" id="contact-email-">null</h2>
+                            <h2 class="contact-info" id="contact-email- contact-email">null</h2>
                             <h1 class="contact-label">Phone Number</h1>
-                            <h2 class="contact-info" id="contact-phone-">null</h2>
+                            <h2 class="contact-info" id="contact-phone- contact-phone">null</h2>
                             <div class="contact-btn">
                                 <button type="button" class="edit-contact-btn" id="edit-contact-btn" onclick="flipContact(0, this.parentNode.parentNode.parentNode.parentNode);"><i class="fas fa-edit"></i> Edit</button>
                                 <button type="button" class="delete-contact-btn" id="delete-contact-btn" onclick="deleteContact(this.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode);"><i class="fas fa-trash-alt"></i> Delete</button>
