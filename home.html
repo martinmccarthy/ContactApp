@@ -1,0 +1,98 @@
+<html>
+    <head>
+        <title>Con-Tacks</title>
+
+        <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+        <meta content="utf-8" http-equiv="encoding">
+
+        <link rel="stylesheet" href="css/main.css">
+        <link rel="stylesheet" href="css/home.css">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.1/css/all.css" crossorigin="anonymous">
+        <style>
+            @import url('https://fonts.googleapis.com/css2?family=Lora&family=Poppins&display=swap');
+        </style> 
+
+        <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
+        <script type="text/javascript" src="js/code.js"></script>
+        <script type="text/javascript" src="js/md5.js"></script>
+    </head>
+
+    <body>
+        <div class="header">
+            <h1 class="logo">Con-Tacks</h1>
+            <button type="button" class="logout-btn" id="logout" onclick="doLogout();">Log Out</button>
+        </div>
+        <div class="inputs">
+            <div class="btn-options">
+                <button type="button" id="expand-search-btn" class="expand-btn" onclick="expandSearch();">SEARCH CONTACT</button>
+                <button type="button" id="expand-add-btn" class="expand-btn" onclick="expandForm();">ADD CONTACT</button>
+            </div>
+            <div class="search" id="expand-search">
+                <select id="dropdown-list">
+                    <option value="Categories" selected>Categories</option>
+                    <option value="First Name">First Name</option>
+                    <option value="Last Name">Last Name</option>
+                    <option value="Email">Email</option>
+                </select>
+                <input type="text" class="txt" id="search-txt" placeholder="Search for a Contact"/>
+                <button type="button" class="btn" id="search-btn" onclick="searchContact();"><i class="fas fa-search"></i></button>
+                <span id="search-results"></span>
+                <p class="contact-list"></p>
+              </div>
+            </div>
+            <div class="new-contact">
+                <div class="expand-form" id="expand-add">
+                    <div class="centered">
+                        <form name="addContactForm">
+                            <input type="text" id="fname" class="txt" placeholder="&#xf2bb First Name"/>
+                            <input type="text" id="lname" class="txt" placeholder="&#xf2bb Last Name"/>
+                            <input type="text" id="email" class="txt" placeholder="&#xf0e0 Email"/>
+                            <input type="text" id="phone" class="txt" placeholder="&#xf879 Phone"/>
+                            <button type="button" class="submit-btn" onclick="addContact();">Submit</button>
+                        </form>
+                    </div>
+                </div>
+                <span id="add-result"></span>
+            </div>
+        </div>
+        
+        <div class="table">
+            <ul class="contact-ul", id="contact-ul">
+
+            </ul>
+        </div>
+        
+
+        <script id="new-card" type="text/html">                    
+            <div class="container">
+                <div class="card" id="card-">
+                    <div class="contact-front" id="contact-front-">
+                        <h1 class="contact-label">Name</h1>
+                        <h2 class="contact-info" id="contact-name-">null</h2>
+                        <h1 class="contact-label">Email</h1>
+                        <h2 class="contact-info" id="contact-email-">null</h2>
+                        <h1 class="contact-label">Phone Number</h1>
+                        <h2 class="contact-info" id="contact-phone-">null</h2>
+                        <div class="contact-btn">
+                            <button type="button" class="edit-contact-btn" id="edit-contact-btn" onclick="flipContact(0, this.parentNode.parentNode.parentNode);"><i class="fas fa-edit"></i> Edit</button>
+                            <button type="button" class="delete-contact-btn" id="delete-contact-btn" onclick="deleteContact(this.parentNode.parentNode.parentNode.parentNode.parentNode);"><i class="fas fa-trash-alt"></i> Delete</button>
+                        </div>
+                    </div>
+                    <div class="contact-back" id="contact-back-">
+                        <button type="button" id="cancel-btn" class="cancel-btn" onclick="flipContact(1, this.parentNode.parentNode);"><i class="far fa-times-circle"></i></button>
+                        <h1 class="contact-label-edit">First Name</h1>
+                        <input type="text" class="edit-input" id="edit-fname" placeholder="&#xf2bb First Name">
+                        <h1 class="contact-label-edit">Last Name</h1>
+                        <input type="text" class="edit-input" id="edit-lname" placeholder="&#xf2bb Last Name">
+                        <h1 class="contact-label-edit">Email</h1>
+                        <input type="text" class="edit-input" id="edit-email" placeholder="&#xf0e0 Email">
+                        <h1 class="contact-label-edit">Phone Number</h1>
+                        <input type="text" class="edit-input" id="edit-phone" placeholder="&#xf879 Phone Number">
+                        <button type="button" class="save-contact-btn" id="save-contact-btn" onclick="saveContact(this.parentNode.parentNode);"><i class="fas fa-check"></i> Save</button>
+                    </div>
+                </div>
+            </div>
+        </script>
+
+    </body>
+</html>
