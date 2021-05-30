@@ -20,7 +20,7 @@ function doLogin()
 
 	document.getElementById("loginResult").innerHTML = "";
 
-	var jsonPayload = '{"login" : "' + login + '", "password" : "' + hash + '"}';
+	var jsonPayload = '{"Login" : "' + login + '", "Password" : "' + hash + '"}';
 //	var jsonPayload = '{"login" : "' + login + '", "password" : "' + password + '"}';
 	var url = '/Login.php';
 
@@ -34,7 +34,7 @@ function doLogin()
 			if (this.readyState == 4 && this.status == 200)
 			{
 				var jsonObject = JSON.parse( xhr.responseText );
-				userId = jsonObject.id;
+				userId = 0;
 
 				if( userId < 1 )
 				{
@@ -42,8 +42,8 @@ function doLogin()
 					return;
 				}
 
-				firstName = jsonObject.firstName;
-				lastName = jsonObject.lastName;
+				firstName = jsonObject.FirstName;
+				lastName = jsonObject.LastName;
 
 				saveCookie();
 
@@ -61,10 +61,10 @@ function doLogin()
 
 function doLogout()
 {
-	userId = 0;
+	userId = -1;
 	firstName = "";
 	lastName = "";
-	document.cookie = "firstName= ; expires = Thu, 01 Jan 1970 00:00:00 GMT";
+	document.cookie = "FirstName= ; expires = Thu, 01 Jan 1970 00:00:00 GMT";
 	window.location.href = "index.html";
 }
 
@@ -75,6 +75,8 @@ function doCreate()
 	var lname = document.getElementById("create-acc-lname").value;
 	var userId = document.getElementById("create-acc-usr").value;
 	var passwd = document.getElementById("create-acc-passwd").value;
+
+	passwd = md5(passwd);
 
 	var jsonPayload = '{"email" : "' + email
 	 + '", "FirstName" : "' + fname
@@ -198,11 +200,13 @@ function addContact() {
     xhr.open("POST", url, true);
     xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
     try {
-        xhr.onreadystatechange = function() {
-            if(this.readyState == 4 && this.status == 200) {
-                document.getElementById("add-result").innerHTML = "Contact Added";
-				/* this is where the add contact should go --> if it's added to the database then
-					upload it to the list */
+		var jsonObject = JSON.parse( xhr.responseText );
+		xhr.onreadystatechange = function() {
+        if(this.readyState == 4 && this.status == 200) {
+			contactId = jsonObject.ContactID;
+            document.getElementById("add-result").innerHTML = "Contact Added";
+			/* this is where the add contact should go --> if it's added to the database then
+			   upload it to the list */
             }
         };
         xhr.send(jsonPayload);
