@@ -7,7 +7,6 @@ var firstName = "";
 var lastName = "";
 var userEmail = "";
 var password = "";
-var phone = "";
 
 function doLogin()
 {
@@ -77,11 +76,7 @@ function doCreate()
 	var userId = document.getElementById("create-acc-usr").value;
 	var passwd = document.getElementById("create-acc-passwd").value;
 
-	var jsonPayload = '{"email" : "' + email
-	 + '", "FirstName" : "' + fname
-	  + '", "LastName" : "' + lname
-		 + '", "Login" : "' + userId
-		  + '", "Password" : "' + passwd + '"}';
+	var jsonPayload = '{"email" : "' + email + '", "FirstName" : "' + fname + '", "LastName" : "' + lname + '", "Login" : "' + userId + '", "Password" : "' + passwd + '"}';
 
 	var url = '/LAMPAPI/Register.php';
 
