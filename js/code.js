@@ -213,49 +213,14 @@ function addContact() {
     }
 }
 
-function searchField(searchValue) {
-	if (searchValue == 0)
-		searchVal = 0;
-
-	else if (searchValue == 1)
-		searchVal = 1;
-
-	else if (searchValue == 2)
-		searchVal = 2;
-
-	else if (searchValue == 3)
-		searchVal = 3;
-}
-
 function searchContact() {
-		var jsonPayload, name;
-
-		// var fname = document.getElementById("create-acc-fname").value;
-		// var lname = document.getElementById("create-acc-lname").value;
-		// var email = document.getElementById("create-acc-email").value;
-
 
 		var srch = document.getElementById("search-txt").value;
     document.getElementById("search-results").innerHTML = "";
 
     var contactList = "";
 
-		if (searchVal == 0)
-			jsonPayload = '{"search" : "' + srch + '","firstName" : ' + fname + '}';
-
-		else if (searchVal == 1)
-			jsonPayload = '{"search" : "' + srch + '","lastName" : ' + lname + '}';
-
-		else if (searchVal == 2)
-			jsonPayload = '{"search" : "' + srch + '","email" : ' + email + '}';
-
-		else if (searchVal == 2)
-			jsonPayload = '{"search" : "' + srch + '","phone" : ' + phone + '}';
-
-		else
-			jsonPayload = '{"search" : "' + srch + '","userId" : ' + fname + '}';
-
-    // var jsonPayload = '{"search" : "' + srch + '","userId" : ' + userId + '}';
+    var jsonPayload = '{"search" : "' + srch + '","userId" : ' + userId + '}';
 
     var url = urlBase + '/SearchContacts.php';
 
@@ -383,31 +348,6 @@ function flipContact(cardSide, contactToFlip) {
 function saveContact(contactToFlip) {
 	flipContact(1, contactToFlip);
 }
-
-function predictor() {
-
-	// Gotta make sure that you can actually access the cards
-	// as they appear from the database.
-
-	var i, div, txt;
-	var input = document.getElementById('search-txt');
-	var filter = input.value.toUpperCase();
-	var ul = document.getElementById('contact-ul');
-	var li = ul.getElementsByTagName('li');
-
-	for (i = 0; i < li.length; i++)
-	{
-		div = li[i].getElementsByTagName("div")[0];
-		txt = div.textContent || div.innerText;
-		if (txt.toUpperCase().indexOf(filter) > -1) {
-			li[i].style.display = "";
-		}
-		else {
-			li[i].style.display = "none";
-		}
-	}
-}
-
 
 function dropBtnToggle() {
 	document.getElementById('dropdown-list').classList.toggle('show');
