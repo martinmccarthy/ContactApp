@@ -103,7 +103,6 @@ function doCreate()
 	}
 	catch(err)
 	{
-		console.log("test");
 		document.getElementById("createAccResult").innerHTML = err.message;
 	}
 }
@@ -175,6 +174,11 @@ function addContact() {
 	var contactEmail = document.getElementById("contact-email-");
 	var contactPhone = document.getElementById("contact-phone-");
 
+	var contactEditfName = document.getElementById("edit-fname-");
+	var contactEditlName = document.getElementById("edit-lname-");
+	var contactEditEmail = document.getElementById("edit-email-");
+	var contactEditPhone = document.getElementById("edit-phone-");
+
 	var contactCard = document.getElementById("card-");
 	var contactFront = document.getElementById("contact-front-");
 	var contactBack = document.getElementById("contact-back-");
@@ -182,6 +186,17 @@ function addContact() {
 	contactName.setAttribute('id', "contact-name-" + id);
 	contactEmail.setAttribute('id', "contact-email-" + id);
 	contactPhone.setAttribute('id', "contact-phone-" + id);
+
+	contactEditfName.setAttribute('id', "edit-fname-card-" + id);
+	contactEditlName.setAttribute('id', "edit-lname-card-" + id);
+	contactEditEmail.setAttribute('id', "edit-email-card-" + id);
+	contactEditPhone.setAttribute('id', "edit-phone-card-" + id);
+
+	contactEditfName.setAttribute('placeholder', fName);
+	contactEditlName.setAttribute('placeholder', lName);
+	contactEditEmail.setAttribute('placeholder', email);
+	contactEditPhone.setAttribute('placeholder', phone);
+
 
 	contactCard.setAttribute('id', "card-" + id);
 	contactFront.setAttribute('id', "contact-front-card-" + id);
@@ -203,7 +218,7 @@ function addContact() {
 		var jsonObject = JSON.parse( xhr.responseText );
 		xhr.onreadystatechange = function() {
         if(this.readyState == 4 && this.status == 200) {
-			contactId = jsonObject.ContactID;
+			//contactId = jsonObject.ContactID;
             document.getElementById("add-result").innerHTML = "Contact Added";
 			/* this is where the add contact should go --> if it's added to the database then
 			   upload it to the list */
@@ -345,6 +360,44 @@ function flipContact(cardSide, contactToFlip) {
 }
 
 function saveContact(contactToFlip) {
+	var id = $(contactToFlip).attr("id");
+
+	console.log(id)
+	var fName = document.getElementById("edit-fname-" + id).value;
+    var lName = document.getElementById("edit-lname-" + id).value;
+	var email = document.getElementById("edit-email-" + id).value;
+	var phone = document.getElementById("edit-phone-" + id).value;
+
+	var str = id;
+	str = str.split("-").pop();
+
+	document.getElementById("contact-name-" + str).innerHTML = fName + " " + lName;
+	document.getElementById("contact-email-" + str).innerHTML = email;
+	document.getElementById("contact-phone-" + str).innerHTML = phone;
+
+	//contactID here is the raw number pulled off the id 
+	var jsonPayload = '{"FirstName" : "' + fName + '", "LastName" : ' + lName + '", "email" : ' + email + '", "phone" : ' + phone + '", "ContactID" : ' + str + '}';
+    var url = urlBase + '/UpdateContact.php';
+
+	var xhr = new XMLHttpRequest();
+    xhr.open("POST", url, true);
+    xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+    try {
+		var jsonObject = JSON.parse( xhr.responseText );
+		xhr.onreadystatechange = function() {
+        if(this.readyState == 4 && this.status == 200) {
+			//contactId = jsonObject.ContactID;
+            document.getElementById("delete-result").innerHTML = "Delete successful";
+			/* this is where the add contact should go --> if it's added to the database then
+			   upload it to the list */
+            }
+        };
+        xhr.send(jsonPayload);
+    }
+    catch(err) {
+        document.getElementById("delete-result").innerHTML = err.message;
+    }
+
 	flipContact(1, contactToFlip);
 }
 
