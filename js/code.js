@@ -230,9 +230,9 @@ function searchField(searchValue) {
 function searchContact() {
 		var jsonPayload, name;
 
-		var fname = document.getElementById("create-acc-fname").value;
-		var lname = document.getElementById("create-acc-lname").value;
-		var email = document.getElementById("create-acc-email").value;
+		// var fname = document.getElementById("create-acc-fname").value;
+		// var lname = document.getElementById("create-acc-lname").value;
+		// var email = document.getElementById("create-acc-email").value;
 
 
 		var srch = document.getElementById("search-txt").value;
