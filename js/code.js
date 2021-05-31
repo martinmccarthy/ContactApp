@@ -1,9 +1,5 @@
 var urlBase = "www.contacks.club";
 var contactId = 0;
-<<<<<<< HEAD
-=======
-
->>>>>>> 146c484b5a822088f93f4a0604e8ad7dcb4038c4
 var searchVal = 0;
 
 var userId = "";
@@ -79,14 +75,9 @@ function doCreate()
 	var lname = document.getElementById("create-acc-lname").value;
 	var userLogin = document.getElementById("create-acc-usr").value;
 	var passwd = document.getElementById("create-acc-passwd").value;
-
-<<<<<<< HEAD
-	var jsonPayload = '{"email" : "' + email + '", "FirstName" : "' + fname + '", "LastName" : "' + lname + '", "Login" : "' + userId + '", "Password" : "' + passwd + '"}';
-=======
 	passwd = md5(passwd);
 
 	var jsonPayload = '{"email" : "' + email + '", "FirstName" : "' + fname + '", "LastName" : "' + lname + '", "Login" : "' + userLogin + '", "Password" : "' + passwd + '"}';
->>>>>>> 146c484b5a822088f93f4a0604e8ad7dcb4038c4
 
 	var url = '/LAMPAPI/Register.php';
 
@@ -212,13 +203,7 @@ function addContact() {
 	document.getElementById("contact-name-" + id).innerHTML = fName + " " + lName;
 	document.getElementById("contact-email-" + id).innerHTML = email;
 	document.getElementById("contact-phone-" + id).innerHTML = phone;
-
-<<<<<<< HEAD
 	document.addContactForm.reset();
-	//ul.appendChild(li);
-=======
-	document.addContactForm.reset();
->>>>>>> 146c484b5a822088f93f4a0604e8ad7dcb4038c4
 
     var jsonPayload = '{"Login" : "' + userId + '", "FirstName" : "' + fName + '", "LastName" : ' + lName + '", "email" : ' + email + '", "phone" : ' + phone + '", "ContactID" : ' + contactId + '}';
     var url = urlBase + '/AddContact.php';
@@ -227,47 +212,27 @@ function addContact() {
     xhr.open("POST", url, true);
     xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
     try {
-<<<<<<< HEAD
-        xhr.onreadystatechange = function() {
-            if(this.readyState == 4 && this.status == 200) {
-                document.getElementById("add-result").innerHTML = "Contact Added";
-
-=======
-		//var jsonObject = JSON.parse( xhr.responseText );
-		xhr.onreadystatechange = function() {
-        if(this.readyState == 4 && this.status == 200) {
-			//contactId = jsonObject.ContactID;
-            document.getElementById("add-result").innerHTML = "Contact Added";
-			/* this is where the add contact should go --> if it's added to the database then
-			   upload it to the list */
->>>>>>> 146c484b5a822088f93f4a0604e8ad7dcb4038c4
-            }
-        };
-        xhr.send(jsonPayload);
-    }
-    catch(err) {
-        document.getElementById("add-result").innerHTML = err.message;
-    }
+			//var jsonObject = JSON.parse( xhr.responseText );
+			xhr.onreadystatechange = function() {
+				if(this.readyState == 4 && this.status == 200) {
+					//contactId = jsonObject.ContactID;
+					document.getElementById("add-result").innerHTML = "Contact Added";
+					/* this is where the add contact should go --> if it's added to the database then
+					upload it to the list */
+				}
+			};
+			xhr.send(jsonPayload);
+		}
+		catch(err) {
+			document.getElementById("add-result").innerHTML = err.message;
+		}
 }
 
 function searchContact() {
-<<<<<<< HEAD
-
-		var srch = document.getElementById("search-txt").value;
-    document.getElementById("search-results").innerHTML = "";
-=======
->>>>>>> 146c484b5a822088f93f4a0604e8ad7dcb4038c4
-
 	var srch = document.getElementById("search-txt").value;
 	document.getElementById("search-results").innerHTML = "";
 
-<<<<<<< HEAD
-    var jsonPayload = '{"search" : "' + srch + '","userId" : ' + userId + '}';
-
-    var url = urlBase + '/SearchContacts.php';
-=======
 	var contactList = "";
->>>>>>> 146c484b5a822088f93f4a0604e8ad7dcb4038c4
 
 	var jsonPayload = '{"search" : "' + srch + '","userId" : ' + userId + '}';
 
