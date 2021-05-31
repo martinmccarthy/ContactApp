@@ -1,8 +1,12 @@
 var urlBase = "www.contacks.club";
 var contactId = 0;
+<<<<<<< HEAD
+=======
+
+>>>>>>> 146c484b5a822088f93f4a0604e8ad7dcb4038c4
 var searchVal = 0;
 
-var userId = 0;
+var userId = "";
 var firstName = "";
 var lastName = "";
 var userEmail = "";
@@ -10,7 +14,7 @@ var password = "";
 
 function doLogin()
 {
-	userId = 0;
+	userId = -1;
 	firstName = "";
 	lastName = "";
 
@@ -20,9 +24,9 @@ function doLogin()
 
 	document.getElementById("loginResult").innerHTML = "";
 
-	var jsonPayload = '{"login" : "' + login + '", "password" : "' + hash + '"}';
+	var jsonPayload = '{"Login" : "' + login + '", "Password" : "' + hash + '"}';
 //	var jsonPayload = '{"login" : "' + login + '", "password" : "' + password + '"}';
-	var url = '/Login.php';
+	var url = '/LAMPAPI/Login.php';
 
 	var xhr = new XMLHttpRequest();
 	xhr.open("POST", url, true);
@@ -34,16 +38,16 @@ function doLogin()
 			if (this.readyState == 4 && this.status == 200)
 			{
 				var jsonObject = JSON.parse( xhr.responseText );
-				userId = jsonObject.id;
+				userId = jsonObject.Login;
 
-				if( userId < 1 )
+				if( jsonObject.Login != login || jsonObject.Password != hash)
 				{
 					document.getElementById("loginResult").innerHTML = "User/Password combination incorrect";
 					return;
 				}
 
-				firstName = jsonObject.firstName;
-				lastName = jsonObject.lastName;
+				firstName = jsonObject.FirstName;
+				lastName = jsonObject.LastName;
 
 				saveCookie();
 
@@ -61,10 +65,10 @@ function doLogin()
 
 function doLogout()
 {
-	userId = 0;
+	userId = -1;
 	firstName = "";
 	lastName = "";
-	document.cookie = "firstName= ; expires = Thu, 01 Jan 1970 00:00:00 GMT";
+	document.cookie = "FirstName= ; expires = Thu, 01 Jan 1970 00:00:00 GMT";
 	window.location.href = "index.html";
 }
 
@@ -73,10 +77,16 @@ function doCreate()
 	var email = document.getElementById("create-acc-email").value;
 	var fname = document.getElementById("create-acc-fname").value;
 	var lname = document.getElementById("create-acc-lname").value;
-	var userId = document.getElementById("create-acc-usr").value;
+	var userLogin = document.getElementById("create-acc-usr").value;
 	var passwd = document.getElementById("create-acc-passwd").value;
 
+<<<<<<< HEAD
 	var jsonPayload = '{"email" : "' + email + '", "FirstName" : "' + fname + '", "LastName" : "' + lname + '", "Login" : "' + userId + '", "Password" : "' + passwd + '"}';
+=======
+	passwd = md5(passwd);
+
+	var jsonPayload = '{"email" : "' + email + '", "FirstName" : "' + fname + '", "LastName" : "' + lname + '", "Login" : "' + userLogin + '", "Password" : "' + passwd + '"}';
+>>>>>>> 146c484b5a822088f93f4a0604e8ad7dcb4038c4
 
 	var url = '/LAMPAPI/Register.php';
 
@@ -90,6 +100,9 @@ function doCreate()
 		{
 			if (this.readyState == 4 && this.status == 200)
 			{
+				userId = userLogin;
+				firstName = fname;
+				lastName = lname;
 				window.location.href = "home.html";
 			}
 		};
@@ -97,7 +110,6 @@ function doCreate()
 	}
 	catch(err)
 	{
-		console.log("test");
 		document.getElementById("createAccResult").innerHTML = err.message;
 	}
 }
@@ -120,7 +132,7 @@ function readCookie()
 	{
 		var thisOne = splits[i].trim();
 		var tokens = thisOne.split("=");
-		if( tokens[0] == "firstName" )
+		if( tokens[0] == "FirstName" )
 		{
 			firstName = tokens[1];
 		}
@@ -169,6 +181,11 @@ function addContact() {
 	var contactEmail = document.getElementById("contact-email-");
 	var contactPhone = document.getElementById("contact-phone-");
 
+	var contactEditfName = document.getElementById("edit-fname-");
+	var contactEditlName = document.getElementById("edit-lname-");
+	var contactEditEmail = document.getElementById("edit-email-");
+	var contactEditPhone = document.getElementById("edit-phone-");
+
 	var contactCard = document.getElementById("card-");
 	var contactFront = document.getElementById("contact-front-");
 	var contactBack = document.getElementById("contact-back-");
@@ -176,6 +193,17 @@ function addContact() {
 	contactName.setAttribute('id', "contact-name-" + id);
 	contactEmail.setAttribute('id', "contact-email-" + id);
 	contactPhone.setAttribute('id', "contact-phone-" + id);
+
+	contactEditfName.setAttribute('id', "edit-fname-card-" + id);
+	contactEditlName.setAttribute('id', "edit-lname-card-" + id);
+	contactEditEmail.setAttribute('id', "edit-email-card-" + id);
+	contactEditPhone.setAttribute('id', "edit-phone-card-" + id);
+
+	contactEditfName.setAttribute('placeholder', fName);
+	contactEditlName.setAttribute('placeholder', lName);
+	contactEditEmail.setAttribute('placeholder', email);
+	contactEditPhone.setAttribute('placeholder', phone);
+
 
 	contactCard.setAttribute('id', "card-" + id);
 	contactFront.setAttribute('id', "contact-front-card-" + id);
@@ -185,20 +213,34 @@ function addContact() {
 	document.getElementById("contact-email-" + id).innerHTML = email;
 	document.getElementById("contact-phone-" + id).innerHTML = phone;
 
+<<<<<<< HEAD
 	document.addContactForm.reset();
 	//ul.appendChild(li);
+=======
+	document.addContactForm.reset();
+>>>>>>> 146c484b5a822088f93f4a0604e8ad7dcb4038c4
 
-    var jsonPayload = '{"firstName" : "' + fName + '", "lastName" : ' + lName + '", "email" : ' + email + '", "phone" : ' + phone + '", "ContactID" : ' + contactId + '}';
+    var jsonPayload = '{"Login" : "' + userId + '", "FirstName" : "' + fName + '", "LastName" : ' + lName + '", "email" : ' + email + '", "phone" : ' + phone + '", "ContactID" : ' + contactId + '}';
     var url = urlBase + '/AddContact.php';
 
     var xhr = new XMLHttpRequest();
     xhr.open("POST", url, true);
     xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
     try {
+<<<<<<< HEAD
         xhr.onreadystatechange = function() {
             if(this.readyState == 4 && this.status == 200) {
                 document.getElementById("add-result").innerHTML = "Contact Added";
 
+=======
+		//var jsonObject = JSON.parse( xhr.responseText );
+		xhr.onreadystatechange = function() {
+        if(this.readyState == 4 && this.status == 200) {
+			//contactId = jsonObject.ContactID;
+            document.getElementById("add-result").innerHTML = "Contact Added";
+			/* this is where the add contact should go --> if it's added to the database then
+			   upload it to the list */
+>>>>>>> 146c484b5a822088f93f4a0604e8ad7dcb4038c4
             }
         };
         xhr.send(jsonPayload);
@@ -209,38 +251,50 @@ function addContact() {
 }
 
 function searchContact() {
+<<<<<<< HEAD
 
 		var srch = document.getElementById("search-txt").value;
     document.getElementById("search-results").innerHTML = "";
+=======
+>>>>>>> 146c484b5a822088f93f4a0604e8ad7dcb4038c4
 
-    var contactList = "";
+	var srch = document.getElementById("search-txt").value;
+	document.getElementById("search-results").innerHTML = "";
 
+<<<<<<< HEAD
     var jsonPayload = '{"search" : "' + srch + '","userId" : ' + userId + '}';
 
     var url = urlBase + '/SearchContacts.php';
+=======
+	var contactList = "";
+>>>>>>> 146c484b5a822088f93f4a0604e8ad7dcb4038c4
 
-    var xhr = new XMLHttpRequest();
-    xhr.open("POST", url, true);
-    xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
-    try {
-        xhr.onreadystatechange = function() {
-            if(this.readyState == 4 && this.status == 200) {
-                document.getElementById("search-results").innerHTML = "Contact found";
-                var jsonObject = JSON.parse(xhr.responseText);
+	var jsonPayload = '{"search" : "' + srch + '","userId" : ' + userId + '}';
 
-                for(var i = 0; i < jsonObject.results.length; i++) {
-                    contactList += jsonObject.results[i];
-                    if(i < jsonObject.results.length - 1) {
-                        contactList += "<br />\r\n";
-                    }
-                }
-            }
-        };
-        xhr.send(jsonPayload);
-    }
-    catch(err) {
-        document.getElementById("search-results").innerHTML = err.message;
-    }
+	var url = urlBase + '/SearchContacts.php';
+
+	var xhr = new XMLHttpRequest();
+	xhr.open("POST", url, true);
+	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+	try {
+		xhr.onreadystatechange = function() {
+			if(this.readyState == 4 && this.status == 200) {
+				document.getElementById("search-results").innerHTML = "Contact found";
+				var jsonObject = JSON.parse(xhr.responseText);
+
+				for(var i = 0; i < jsonObject.results.length; i++) {
+					contactList += jsonObject.results[i];
+					if(i < jsonObject.results.length - 1) {
+						contactList += "<br />\r\n";
+					}
+				}
+			}
+		};
+		xhr.send(jsonPayload);
+	}
+	catch(err) {
+		document.getElementById("search-results").innerHTML = err.message;
+	}
 }
 
 function expandForm() {
@@ -341,6 +395,44 @@ function flipContact(cardSide, contactToFlip) {
 }
 
 function saveContact(contactToFlip) {
+	var id = $(contactToFlip).attr("id");
+
+	console.log(id)
+	var fName = document.getElementById("edit-fname-" + id).value;
+    var lName = document.getElementById("edit-lname-" + id).value;
+	var email = document.getElementById("edit-email-" + id).value;
+	var phone = document.getElementById("edit-phone-" + id).value;
+
+	var str = id;
+	str = str.split("-").pop();
+
+	document.getElementById("contact-name-" + str).innerHTML = fName + " " + lName;
+	document.getElementById("contact-email-" + str).innerHTML = email;
+	document.getElementById("contact-phone-" + str).innerHTML = phone;
+
+	//contactID here is the raw number pulled off the id
+	var jsonPayload = '{"FirstName" : "' + fName + '", "LastName" : ' + lName + '", "email" : ' + email + '", "phone" : ' + phone + '", "ContactID" : ' + str + '}';
+    var url = urlBase + '/UpdateContact.php';
+
+	var xhr = new XMLHttpRequest();
+    xhr.open("POST", url, true);
+    xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+    try {
+		var jsonObject = JSON.parse( xhr.responseText );
+		xhr.onreadystatechange = function() {
+        if(this.readyState == 4 && this.status == 200) {
+			//contactId = jsonObject.ContactID;
+            document.getElementById("delete-result").innerHTML = "Delete successful";
+			/* this is where the add contact should go --> if it's added to the database then
+			   upload it to the list */
+            }
+        };
+        xhr.send(jsonPayload);
+    }
+    catch(err) {
+        //document.getElementById("delete-result").innerHTML = err.message;
+    }
+
 	flipContact(1, contactToFlip);
 }
 
@@ -353,23 +445,23 @@ function displayOnClick(idValue) {
 }
 
 window.onclick = function(event) {
-  if (!event.target.matches('.dropdown-btn')) {
-    var dropdowns = document.getElementsByClassName("dropdown-content");
-    var i;
-    for (i = 0; i < dropdowns.length; i++) {
-      var openDropdown = dropdowns[i];
-      if (openDropdown.classList.contains('show')) {
-        openDropdown.classList.remove('show');
-      }
-    }
-  }
+	if (!event.target.matches('.dropdown-btn')) {
+		var dropdowns = document.getElementsByClassName("dropdown-content");
+		var i;
+		for (i = 0; i < dropdowns.length; i++) {
+			var openDropdown = dropdowns[i];
+			if (openDropdown.classList.contains('show')) {
+				openDropdown.classList.remove('show');
+			}
+		}
+	}
 }
 
 function getStyleSheet(unique_title) {
 	for (var i=0; i<document.styleSheets.length; i++) {
-	  var sheet = document.styleSheets[i];
-	  if (sheet.title == unique_title) {
-		return sheet;
-	  }
+		var sheet = document.styleSheets[i];
+	  	if (sheet.title == unique_title) {
+			return sheet;
+		}
 	}
 }
