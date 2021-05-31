@@ -1,8 +1,9 @@
 var urlBase = "www.contacks.club";
 var contactId = 0;
 
+var searchVal = 0;
 
-var userId = 0;
+var userId = "";
 var firstName = "";
 var lastName = "";
 var userEmail = "";
@@ -22,7 +23,7 @@ function doLogin()
 
 	var jsonPayload = '{"Login" : "' + login + '", "Password" : "' + hash + '"}';
 //	var jsonPayload = '{"login" : "' + login + '", "password" : "' + password + '"}';
-	var url = '/Login.php';
+	var url = '/LAMPAPI/Login.php';
 
 	var xhr = new XMLHttpRequest();
 	xhr.open("POST", url, true);
@@ -34,9 +35,9 @@ function doLogin()
 			if (this.readyState == 4 && this.status == 200)
 			{
 				var jsonObject = JSON.parse( xhr.responseText );
-				userId = 0;
+				userId = jsonObject.Login;
 
-				if( userId < 1 )
+				if( jsonObject.Login != login || jsonObject.Password != hash)
 				{
 					document.getElementById("loginResult").innerHTML = "User/Password combination incorrect";
 					return;
@@ -73,16 +74,12 @@ function doCreate()
 	var email = document.getElementById("create-acc-email").value;
 	var fname = document.getElementById("create-acc-fname").value;
 	var lname = document.getElementById("create-acc-lname").value;
-	var userId = document.getElementById("create-acc-usr").value;
+	var userLogin = document.getElementById("create-acc-usr").value;
 	var passwd = document.getElementById("create-acc-passwd").value;
 
 	passwd = md5(passwd);
 
-	var jsonPayload = '{"email" : "' + email
-	 + '", "FirstName" : "' + fname
-	  + '", "LastName" : "' + lname
-		 + '", "Login" : "' + userId
-		  + '", "Password" : "' + passwd + '"}';
+	var jsonPayload = '{"email" : "' + email + '", "FirstName" : "' + fname + '", "LastName" : "' + lname + '", "Login" : "' + userLogin + '", "Password" : "' + passwd + '"}';
 
 	var url = '/LAMPAPI/Register.php';
 
@@ -96,6 +93,9 @@ function doCreate()
 		{
 			if (this.readyState == 4 && this.status == 200)
 			{
+				userId = userLogin;
+				firstName = fname;
+				lastName = lname;
 				window.location.href = "home.html";
 			}
 		};
@@ -208,14 +208,14 @@ function addContact() {
 
 	document.addContactForm.reset(); 
 
-    var jsonPayload = '{"FirstName" : "' + fName + '", "LastName" : ' + lName + '", "email" : ' + email + '", "phone" : ' + phone + '", "ContactID" : ' + contactId + '}';
+    var jsonPayload = '{"Login" : "' + userId + '", "FirstName" : "' + fName + '", "LastName" : ' + lName + '", "email" : ' + email + '", "phone" : ' + phone + '", "ContactID" : ' + contactId + '}';
     var url = urlBase + '/AddContact.php';
 
     var xhr = new XMLHttpRequest();
     xhr.open("POST", url, true);
     xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
     try {
-		var jsonObject = JSON.parse( xhr.responseText );
+		//var jsonObject = JSON.parse( xhr.responseText );
 		xhr.onreadystatechange = function() {
         if(this.readyState == 4 && this.status == 200) {
 			//contactId = jsonObject.ContactID;
@@ -232,36 +232,38 @@ function addContact() {
 }
 
 function searchContact() {
-    var srch = document.getElementById("search-txt").value;
-    document.getElementById("search-results").innerHTML = "";
 
-    var contactList = "";
+	var srch = document.getElementById("search-txt").value;
+	document.getElementById("search-results").innerHTML = "";
 
-    var jsonPayload = '{"search" : "' + srch + '","userId" : ' + userId + '}';
-    var url = urlBase + '/SearchContacts.php';
+	var contactList = "";
 
-    var xhr = new XMLHttpRequest();
-    xhr.open("POST", url, true);
-    xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
-    try {
-        xhr.onreadystatechange = function() {
-            if(this.readyState == 4 && this.status == 200) {
-                document.getElementById("search-results").innerHTML = "Contact found";
-                var jsonObject = JSON.parse(xhr.responseText);
+	var jsonPayload = '{"search" : "' + srch + '","userId" : ' + userId + '}';
 
-                for(var i = 0; i < jsonObject.results.length; i++) {
-                    contactList += jsonObject.results[i];
-                    if(i < jsonObject.results.length - 1) {
-                        contactList += "<br />\r\n";
-                    }
-                }
-            }
-        };
-        xhr.send(jsonPayload);
-    }
-    catch(err) {
-        document.getElementById("search-results").innerHTML = err.message;
-    }
+	var url = urlBase + '/SearchContacts.php';
+
+	var xhr = new XMLHttpRequest();
+	xhr.open("POST", url, true);
+	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+	try {
+		xhr.onreadystatechange = function() {
+			if(this.readyState == 4 && this.status == 200) {
+				document.getElementById("search-results").innerHTML = "Contact found";
+				var jsonObject = JSON.parse(xhr.responseText);
+
+				for(var i = 0; i < jsonObject.results.length; i++) {
+					contactList += jsonObject.results[i];
+					if(i < jsonObject.results.length - 1) {
+						contactList += "<br />\r\n";
+					}
+				}
+			}
+		};
+		xhr.send(jsonPayload);
+	}
+	catch(err) {
+		document.getElementById("search-results").innerHTML = err.message;
+	}
 }
 
 function expandForm() {
@@ -395,7 +397,7 @@ function saveContact(contactToFlip) {
         xhr.send(jsonPayload);
     }
     catch(err) {
-        document.getElementById("delete-result").innerHTML = err.message;
+        //document.getElementById("delete-result").innerHTML = err.message;
     }
 
 	flipContact(1, contactToFlip);
@@ -403,15 +405,32 @@ function saveContact(contactToFlip) {
 
 
 function dropBtnToggle() {
-	document.getElementById("myDropdown").classList.toggle("show");
+	document.getElementById('dropdown-list').classList.toggle('show');
+}
+
+function displayOnClick(idValue) {
+	document.getElementById('cat-btn').innerHTML = idValue;
+}
+
+window.onclick = function(event) {
+	if (!event.target.matches('.dropdown-btn')) {
+		var dropdowns = document.getElementsByClassName("dropdown-content");
+		var i;
+		for (i = 0; i < dropdowns.length; i++) {
+			var openDropdown = dropdowns[i];
+			if (openDropdown.classList.contains('show')) {
+				openDropdown.classList.remove('show');
+			}
+		}
+	}
 }
 
 function getStyleSheet(unique_title) {
 	for (var i=0; i<document.styleSheets.length; i++) {
-	  var sheet = document.styleSheets[i];
-	  if (sheet.title == unique_title) {
-		return sheet;
-	  }
+		var sheet = document.styleSheets[i];
+	  	if (sheet.title == unique_title) {
+			return sheet;
+		}
 	}
-  }
+}
   
