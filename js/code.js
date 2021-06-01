@@ -2,7 +2,7 @@ var urlBase = "www.contacks.club";
 var contactId = 0;
 
 var searchVal = 0;
-
+var contactList = "";
 var userId = "";
 var firstName = "";
 var lastName = "";
@@ -149,6 +149,10 @@ function readCookie()
 	}
 }
 
+// function appendContact(fname, lname, email, phone) {
+//
+// }
+
 function addContact() {
     var fName = document.getElementById("fname").value;
     var lName = document.getElementById("lname").value;
@@ -231,12 +235,93 @@ function addContact() {
     }
 }
 
+function searchField(searchValue) {
+	if (searchValue == 0)
+		searchVal = 0;
+
+	else if (searchValue == 1)
+		searchVal = 1;
+
+	else if (searchValue == 2)
+		searchVal = 2;
+}
+
+function search() {
+	contactList = "";
+
+	var searchType = [
+		document.getElementsByClassName('contact-name'),
+		document.getElementsByClassName('contact-email'),
+		document.getElementsByClassName('contact-phone'),
+	];
+
+	var contactNameList = searchType[searchVal];
+	var input = document.getElementById('search-txt').value;
+	var i, index, id;
+
+	for (i = 0; i < contactNameList.length; ++i) {
+		if (contactNameList[i].textContent == input)
+		{
+			index = i;
+			id = contactNameList[i].id;
+			var card = document.getElementById(contactNameList[index].id).parentNode.parentNode.parentNode.parentNode;
+			makeHidden();
+			var resultList = document.getElementById('search-list');
+			resultList.appendChild(card);
+		}
+	}
+
+	// for (i = 0; i < contactNameList.length && i != index; ++i)
+	// 	document.getElementById(contactNameList[i].id).parentNode.parentNode.parentNode.parentNode.setAttribute("style", "visibility: hidden;");
+
+	// document.getElementById(id).parentNode.parentNode.parentNode.parentNode.setAttribute("style", "visibility: visible;");
+
+	// var card = document.getElementById(contactNameList[index].id).parentNode.parentNode.parentNode.parentNode;
+	// var ul = document.getElementById("contact-ul").setAttribute("style", "visibility: hidden");
+	// makeHidden();
+	// var resultList = document.getElementById('search-list');
+	// ul.appendChild(card);
+	// resultList.appendChild(card);
+}
+
 function searchContact() {
 
 	var srch = document.getElementById("search-txt").value;
 	document.getElementById("search-results").innerHTML = "";
 
-	var contactList = "";
+	var searchType = [
+		document.getElementsByClassName('contact-name'),
+		document.getElementsByClassName('contact-email'),
+		document.getElementsByClassName('contact-phone'),
+	];
+
+	contactList = "";
+
+	// if (searchVal == 0 && contactList != "") {
+	// 	var i, div, txt;
+	// 	var input = searchType[0];
+	// 	var filter = input.value.toUpperCase();
+	// 	var ul = document.getElementById('contact-ul');
+	// 	var contactsByName = ul.getElementsByTagName('contact-name- contact-name');
+	//
+	// 	for (i = 0; i < contactsByName.length; i++)
+	// 	{
+	// 		div = contactsByName[i].getElementsByTagName("div")[0];
+	// 		txt = div.textContent || div.innerText;
+	// 		if (txt.toUpperCase().indexOf(filter) > -1) {
+	// 			contactsByName[i].style.display = "";
+	// 		}
+	// 		else {
+	// 			contactsByName[i].style.display = "none";
+	// 		}
+	// 	}
+	//
+	// 	var i;
+	// 	var input = document.getElementById('search-txt').value;
+	//
+	//
+	//
+	// }
 
 	var jsonPayload = '{"search" : "' + srch + '","userId" : ' + userId + '}';
 
@@ -265,6 +350,30 @@ function searchContact() {
 		document.getElementById("search-results").innerHTML = err.message;
 	}
 }
+
+// function predictor(input) {
+//
+// 	// Gotta make sure that you can actually access the cards
+// 	// as they appear from the database.
+//
+// 	var i, div, txt;
+// 	var input = document.getElementById('search-txt');
+// 	var filter = input.value.toUpperCase();
+// 	var ul = document.getElementById('contact-ul');
+// 	var li = ul.getElementsByTagName('li');
+//
+// 	for (i = 0; i < li.length; i++)
+// 	{
+// 		div = li[i].getElementsByTagName("div")[0];
+// 		txt = div.textContent || div.innerText;
+// 		if (txt.toUpperCase().indexOf(filter) > -1) {
+// 			li[i].style.display = "";
+// 		}
+// 		else {
+// 			li[i].style.display = "none";
+// 		}
+// 	}
+// }
 
 function expandForm() {
     var form = document.getElementById("expand-add");
@@ -403,6 +512,9 @@ function saveContact(contactToFlip) {
 	flipContact(1, contactToFlip);
 }
 
+function makeHidden() {
+	document.getElementById('contact-ul').classList.toggle('hide', true);
+}
 
 function dropBtnToggle() {
 	document.getElementById('dropdown-list').classList.toggle('show');
