@@ -78,14 +78,7 @@ body {
 .dropdown-content {
   display: none;
   position: absolute;
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
   z-index: 1;
-}
-
-.list-btn {
-  background-image: linear-gradient(0deg, #08AEEA 0%, #2AF598 100%);
-  min-width: 160px;
-  padding: 10px;
 }
 
 #fname-btn {
@@ -106,8 +99,7 @@ body {
 }
 
 #dropdown-list {
-  border: black solid 2px;
-  border-radius: 25px;
+
 }
 
 .dropdown-btn {
@@ -118,7 +110,6 @@ body {
   background-color: #08AEEA;
   background-image: linear-gradient(0deg, #08AEEA 0%, #2AF598 100%);
   border: black solid 1px;
-  border-radius: 25px;
 }
 
 .dropdown {
@@ -359,4 +350,15 @@ body {
     font-family: 'Poppins', sans-serif;
     font-size: 18px;
     color: white;
+}
+
+#inbetween {
+    display: none;
+    margin-top: 10px;
+    border: 3px solid white;
+    border-radius: 5px;
+    width: 75%;
+    margin-left: auto;
+    margin-right: auto;
+    opacity: 85%;
 }

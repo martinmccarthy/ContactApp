@@ -8,6 +8,8 @@ var lastName = "";
 var userEmail = "";
 var password = "";
 
+var currentSearch = false;
+
 function doLogin()
 {
 	userId = -1;
@@ -16,11 +18,11 @@ function doLogin()
 
 	var login = document.getElementById("loginName").value;
 	var password = document.getElementById("loginPassword").value;
-	var hash = md5( password );
+	//var hash = md5( password );
 
 	document.getElementById("loginResult").innerHTML = "";
 
-	var jsonPayload = '{"Login" : "' + login + '", "Password" : "' + hash + '"}';
+	var jsonPayload = '{"Login" : "' + login + '", "Password" : "' + password + '"}';
 //	var jsonPayload = '{"login" : "' + login + '", "password" : "' + password + '"}';
 	var url = '/LAMPAPI/Login.php';
 
@@ -33,8 +35,12 @@ function doLogin()
 		{
 			if (this.readyState == 4 && this.status == 200)
 			{
-				var jsonObject = JSON.parse( xhr.responseText );
+				var jsonObject = JSON.parse(xhr.responseText);
+				//var jsonObject = JSON.parse( xhr.responseText );
 				userId = jsonObject.Login;
+
+				console.log("userId : " + userId);
+				console.log(jsonObject.Password);
 
 				if( jsonObject.Login != login || jsonObject.Password != hash)
 				{
@@ -76,7 +82,7 @@ function doCreate()
 	var userLogin = document.getElementById("create-acc-usr").value;
 	var passwd = document.getElementById("create-acc-passwd").value;
 
-	passwd = md5(passwd);
+	//passwd = md5(passwd);
 
 	var jsonPayload = '{"email" : "' + email + '", "FirstName" : "' + fname + '", "LastName" : "' + lname + '", "Login" : "' + userLogin + '", "Password" : "' + passwd + '"}';
 
@@ -131,10 +137,6 @@ function readCookie()
 		else if( tokens[0] == "LastName" )
 		{
 			lastName = tokens[1];
-		}
-		else if( tokens[0] == "UserId" )
-		{
-			userId = parseInt( tokens[1].trim() );
 		}
 	}
 
@@ -257,17 +259,33 @@ function search() {
 	var input = document.getElementById('search-txt').value;
 	var i, index, id;
 
-	for (i = 0; i < contactNameList.length; ++i) {
+	var fullList = document.getElementById('contact-ul');
+	var currentSearchList = document.getElementById('search-list');
+
+	//makeHidden();
+	if(currentSearch == true) {
+		var items = currentSearchList.childNodes;
+		for(var j = 0; j <= items.length; j++) {
+ 			fullList.appendChild(items[j]);
+		}
+		document.getElementById('inbetween').style.display = 'none';
+		currentSearch = false;
+	}
+
+	for (i = 0; i < contactNameList.length; i++) {
 		if (contactNameList[i].textContent == input)
 		{
+			currentSearch = true;
+			document.getElementById('inbetween').style.display = 'block';
 			index = i;
 			id = contactNameList[i].id;
 			var card = document.getElementById(contactNameList[index].id).parentNode.parentNode.parentNode.parentNode;
-			makeHidden();
-			var resultList = document.getElementById('search-list');
-			resultList.appendChild(card);
+			console.log(card);
+			currentSearchList = document.getElementById('search-list');
+			currentSearchList.appendChild(card);
 		}
 	}
+
 
 	// for (i = 0; i < contactNameList.length && i != index; ++i)
 	// 	document.getElementById(contactNameList[i].id).parentNode.parentNode.parentNode.parentNode.setAttribute("style", "visibility: hidden;");
@@ -415,7 +433,12 @@ function editContact() {
 }
 
 function deleteContact(contactId) {
-	document.getElementById($(contactId).attr("id")).remove();
+	var proceed = confirm("This will remove the contact PERMANENTLY, are you sure you want to proceed?");
+	if (proceed) {
+  		document.getElementById($(contactId).attr("id")).remove();
+	} else {
+  		return;
+	}	
 	//console.log(li.parent);
 
 	//var ul = document.getElementById("contact-ul");
@@ -484,9 +507,7 @@ function saveContact(contactToFlip) {
 	flipContact(1, contactToFlip);
 }
 
-function makeHidden() {
-	document.getElementById('contact-ul').classList.toggle('hide', true);
-}
+
 
 function dropBtnToggle() {
 	document.getElementById('dropdown-list').classList.toggle('show');
