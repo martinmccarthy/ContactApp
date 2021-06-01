@@ -30,18 +30,17 @@
             </div>
             <div class="search" id="expand-search">
                 <div class="dropdown">
-                    <button class="dropdown-btn" id="cat-btn" onclick="dropBtnToggle();searchField(0);">First Name
+                    <button class="dropdown-btn" id="cat-btn" onclick="dropBtnToggle();">Name
                       <!-- <i class="arrow down"></i> -->
                     </button>
                     <div class="dropdown-content" id="dropdown-list">
-                        <button class="list-btn" id="fname-btn" onclick="displayOnClick('First Name');searchField(0);">First Name</button>
-                        <button class="list-btn" id="lname-btn" onclick="displayOnClick('Last Name');searchField(1);">Last Name</button>
-                        <button class="list-btn" id="email-btn" onclick="displayOnClick('Email');searchField(2);">Email</button>
-                        <button class="list-btn" id="phone-btn" onclick="displayOnClick('Phone');searchField(3);">Phone</button>
+                        <button class="list-btn" id="name-btn" onclick="displayOnClick('Name');searchField(0);">Name</button>
+                        <button class="list-btn" id="email-btn" onclick="displayOnClick('Email');searchField(1);">Email</button>
+                        <button class="list-btn" id="phone-btn" onclick="displayOnClick('Phone');searchField(2);">Phone</button>
                     </div>
                 </div>
                 <input type="text" class="searching-txt" id="search-txt" placeholder="Search for a Contact"/>
-                <button type="button" class="btn" id="search-btn" onclick="searchContact();"><i class="fas fa-search"></i></button>
+                <button type="button" class="btn" id="search-btn" onclick="search();"><i class="fas fa-search"></i></button>
                 <span id="search-results"></span>
                 <p class="contact-list"></p>
               </div>
@@ -67,17 +66,22 @@
 
             </ul>
         </div>
+        <div class="result-table">
+          <ul class="contact-ul", id="search-list">
+
+          </ul>
+        </div>
 
         <script id="new-card" type="text/html">
             <div class="container">
                 <div class="card" id="card-">
                     <div class="contact-front" id="contact-front-">
                         <h1 class="contact-label">Name</h1>
-                        <h2 class="contact-info" id="contact-name- contact-name">null</h2>
+                        <h2 class="contact-info contact-name" id="contact-name-">null</h2>
                         <h1 class="contact-label">Email</h1>
-                        <h2 class="contact-info" id="contact-email- contact-email">null</h2>
+                        <h2 class="contact-info contact-email" id="contact-email-">null</h2>
                         <h1 class="contact-label">Phone Number</h1>
-                        <h2 class="contact-info" id="contact-phone- contact-phone">null</h2>
+                        <h2 class="contact-info contact-phone" id="contact-phone-">null</h2>
                         <div class="contact-btn">
                             <button type="button" class="edit-contact-btn" id="edit-contact-btn" onclick="flipContact(0, this.parentNode.parentNode.parentNode);"><i class="fas fa-edit"></i> Edit</button>
                             <button type="button" class="delete-contact-btn" id="delete-contact-btn" onclick="deleteContact(this.parentNode.parentNode.parentNode.parentNode.parentNode);"><i class="fas fa-trash-alt"></i> Delete</button>
