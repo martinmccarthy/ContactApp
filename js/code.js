@@ -2,7 +2,6 @@ var urlBase = "www.contacks.club";
 var contactId = 0;
 
 var searchVal = 0;
-var contactList = "";
 var userId = "";
 var firstName = "";
 var lastName = "";
@@ -247,7 +246,6 @@ function searchField(searchValue) {
 }
 
 function search() {
-	contactList = "";
 
 	var searchType = [
 		document.getElementsByClassName('contact-name'),
@@ -295,33 +293,7 @@ function searchContact() {
 		document.getElementsByClassName('contact-phone'),
 	];
 
-	contactList = "";
-
-	// if (searchVal == 0 && contactList != "") {
-	// 	var i, div, txt;
-	// 	var input = searchType[0];
-	// 	var filter = input.value.toUpperCase();
-	// 	var ul = document.getElementById('contact-ul');
-	// 	var contactsByName = ul.getElementsByTagName('contact-name- contact-name');
-	//
-	// 	for (i = 0; i < contactsByName.length; i++)
-	// 	{
-	// 		div = contactsByName[i].getElementsByTagName("div")[0];
-	// 		txt = div.textContent || div.innerText;
-	// 		if (txt.toUpperCase().indexOf(filter) > -1) {
-	// 			contactsByName[i].style.display = "";
-	// 		}
-	// 		else {
-	// 			contactsByName[i].style.display = "none";
-	// 		}
-	// 	}
-	//
-	// 	var i;
-	// 	var input = document.getElementById('search-txt').value;
-	//
-	//
-	//
-	// }
+	var contactList = "";
 
 	var jsonPayload = '{"search" : "' + srch + '","userId" : ' + userId + '}';
 
