@@ -2,7 +2,6 @@ var urlBase = "www.contacks.club";
 var contactId = 0;
 
 var searchVal = 0;
-
 var userId = "";
 var firstName = "";
 var lastName = "";
@@ -112,7 +111,7 @@ function saveCookie()
 {
 	var minutes = 20;
 	var date = new Date();
-	date.setTime(date.getTime()+(minutes*60*1000));	
+	date.setTime(date.getTime()+(minutes*60*1000));
 	document.cookie = "FirstName=" + firstName + ",LastName=" + lastName + ";expires=" + date.toGMTString();
 }
 
@@ -148,6 +147,10 @@ function readCookie()
 		document.getElementById("userName").innerHTML = "Logged in as " + firstName + " " + lastName;
 	}
 }
+
+// function appendContact(fname, lname, email, phone) {
+//
+// }
 
 function addContact() {
     var fName = document.getElementById("fname").value;
@@ -206,7 +209,7 @@ function addContact() {
 	document.getElementById("contact-email-" + id).innerHTML = email;
 	document.getElementById("contact-phone-" + id).innerHTML = phone;
 
-	document.addContactForm.reset(); 
+	document.addContactForm.reset();
 
     var jsonPayload = '{"Login" : "' + userId + '", "FirstName" : "' + fName + '", "LastName" : ' + lName + '", "email" : ' + email + '", "phone" : ' + phone + '", "ContactID" : ' + contactId + '}';
     var url = urlBase + '/AddContact.php';
@@ -231,10 +234,64 @@ function addContact() {
     }
 }
 
+function searchField(searchValue) {
+	if (searchValue == 0)
+		searchVal = 0;
+
+	else if (searchValue == 1)
+		searchVal = 1;
+
+	else if (searchValue == 2)
+		searchVal = 2;
+}
+
+function search() {
+
+	var searchType = [
+		document.getElementsByClassName('contact-name'),
+		document.getElementsByClassName('contact-email'),
+		document.getElementsByClassName('contact-phone'),
+	];
+
+	var contactNameList = searchType[searchVal];
+	var input = document.getElementById('search-txt').value;
+	var i, index, id;
+
+	for (i = 0; i < contactNameList.length; ++i) {
+		if (contactNameList[i].textContent == input)
+		{
+			index = i;
+			id = contactNameList[i].id;
+			var card = document.getElementById(contactNameList[index].id).parentNode.parentNode.parentNode.parentNode;
+			makeHidden();
+			var resultList = document.getElementById('search-list');
+			resultList.appendChild(card);
+		}
+	}
+
+	// for (i = 0; i < contactNameList.length && i != index; ++i)
+	// 	document.getElementById(contactNameList[i].id).parentNode.parentNode.parentNode.parentNode.setAttribute("style", "visibility: hidden;");
+
+	// document.getElementById(id).parentNode.parentNode.parentNode.parentNode.setAttribute("style", "visibility: visible;");
+
+	// var card = document.getElementById(contactNameList[index].id).parentNode.parentNode.parentNode.parentNode;
+	// var ul = document.getElementById("contact-ul").setAttribute("style", "visibility: hidden");
+	// makeHidden();
+	// var resultList = document.getElementById('search-list');
+	// ul.appendChild(card);
+	// resultList.appendChild(card);
+}
+
 function searchContact() {
 
 	var srch = document.getElementById("search-txt").value;
 	document.getElementById("search-results").innerHTML = "";
+
+	var searchType = [
+		document.getElementsByClassName('contact-name'),
+		document.getElementsByClassName('contact-email'),
+		document.getElementsByClassName('contact-phone'),
+	];
 
 	var contactList = "";
 
@@ -265,6 +322,30 @@ function searchContact() {
 		document.getElementById("search-results").innerHTML = err.message;
 	}
 }
+
+// function predictor(input) {
+//
+// 	// Gotta make sure that you can actually access the cards
+// 	// as they appear from the database.
+//
+// 	var i, div, txt;
+// 	var input = document.getElementById('search-txt');
+// 	var filter = input.value.toUpperCase();
+// 	var ul = document.getElementById('contact-ul');
+// 	var li = ul.getElementsByTagName('li');
+//
+// 	for (i = 0; i < li.length; i++)
+// 	{
+// 		div = li[i].getElementsByTagName("div")[0];
+// 		txt = div.textContent || div.innerText;
+// 		if (txt.toUpperCase().indexOf(filter) > -1) {
+// 			li[i].style.display = "";
+// 		}
+// 		else {
+// 			li[i].style.display = "none";
+// 		}
+// 	}
+// }
 
 function expandForm() {
     var form = document.getElementById("expand-add");
@@ -306,17 +387,17 @@ function fadeOutOnScroll(element) {
 	if (!element) {
 		return;
 	}
-	
+
 	var distanceToTop = window.pageYOffset + element.getBoundingClientRect().top;
 	var elementHeight = element.offsetHeight;
 	var scrollTop = document.documentElement.scrollTop;
-	
+
 	var opacity = 1;
-	
+
 	if (scrollTop > distanceToTop) {
 		opacity = 1 - (scrollTop - distanceToTop) / elementHeight;
 	}
-	
+
 	if (opacity >= 0) {
 		element.style.opacity = opacity;
 	}
@@ -346,7 +427,7 @@ function flipContact(cardSide, contactToFlip) {
 	var card = document.getElementById(contactToFlip);
 	var front = document.getElementById('contact-front-' + contactToFlip);
 	var back = document.getElementById('contact-back-' + contactToFlip)
-	
+
 	if(cardSide == 0) {
 		front.style.display = 'none'
 		back.style.backfaceVisibility = 'visible';
@@ -377,7 +458,7 @@ function saveContact(contactToFlip) {
 	document.getElementById("contact-email-" + str).innerHTML = email;
 	document.getElementById("contact-phone-" + str).innerHTML = phone;
 
-	//contactID here is the raw number pulled off the id 
+	//contactID here is the raw number pulled off the id
 	var jsonPayload = '{"FirstName" : "' + fName + '", "LastName" : ' + lName + '", "email" : ' + email + '", "phone" : ' + phone + '", "ContactID" : ' + str + '}';
     var url = urlBase + '/UpdateContact.php';
 
@@ -403,6 +484,9 @@ function saveContact(contactToFlip) {
 	flipContact(1, contactToFlip);
 }
 
+function makeHidden() {
+	document.getElementById('contact-ul').classList.toggle('hide', true);
+}
 
 function dropBtnToggle() {
 	document.getElementById('dropdown-list').classList.toggle('show');
@@ -433,4 +517,3 @@ function getStyleSheet(unique_title) {
 		}
 	}
 }
-  
