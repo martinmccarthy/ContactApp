@@ -256,3 +256,19 @@ ul {
     font-size: 15px;
     font-family: 'Poppins', 'sans-serif';
 }
+
+.pin {
+    float: right;
+    font-size: 25px;
+    color: black;
+    background: none;
+    border: none;
+    transform: rotate(45deg);
+
+}
+
+.pin:hover {
+    cursor: pointer;
+    transition: .7s;
+    color: goldenrod;
+}

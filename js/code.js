@@ -18,11 +18,11 @@ function doLogin()
 
 	var login = document.getElementById("loginName").value;
 	var password = document.getElementById("loginPassword").value;
-	//var hash = md5( password );
+	var hash = md5( password );
 
 	document.getElementById("loginResult").innerHTML = "";
 
-	var jsonPayload = '{"Login" : "' + login + '", "Password" : "' + password + '"}';
+	var jsonPayload = '{"Login" : "' + login + '", "Password" : "' + hash + '"}';
 //	var jsonPayload = '{"login" : "' + login + '", "password" : "' + password + '"}';
 	var url = '/LAMPAPI/Login.php';
 
@@ -82,7 +82,12 @@ function doCreate()
 	var userLogin = document.getElementById("create-acc-usr").value;
 	var passwd = document.getElementById("create-acc-passwd").value;
 
-	//passwd = md5(passwd);
+	passwd = md5(passwd);
+
+	if(email.length == 0 || fname.length == 0 || lname.length == 0 || userLogin.length == 0 || passwd.length == 0) {
+		document.getElementById("create-result").innerHTML = "invalid inputs, try again";
+		return;
+	}
 
 	var jsonPayload = '{"email" : "' + email + '", "FirstName" : "' + fname + '", "LastName" : "' + lname + '", "Login" : "' + userLogin + '", "Password" : "' + passwd + '"}';
 
@@ -91,7 +96,6 @@ function doCreate()
 	var xhr = new XMLHttpRequest();
 	xhr.open("POST", url, true);
 	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
-
 	try
 	{
 		xhr.onreadystatechange = function()
@@ -102,13 +106,15 @@ function doCreate()
 				firstName = fname;
 				lastName = lname;
 				window.location.href = "home.html";
+				var topName = document.getElementById("userName");
+				topName.innerHTML = "Logged in as " + firstName + " " + lastName;
 			}
 		};
 		xhr.send(jsonPayload);
 	}
 	catch(err)
 	{
-		document.getElementById("createAccResult").innerHTML = err.message;
+		document.getElementById("create-result").innerHTML = err.message;
 	}
 }
 
@@ -214,7 +220,7 @@ function addContact() {
 	document.addContactForm.reset();
 
     var jsonPayload = '{"Login" : "' + userId + '", "FirstName" : "' + fName + '", "LastName" : ' + lName + '", "email" : ' + email + '", "phone" : ' + phone + '", "ContactID" : ' + contactId + '}';
-    var url = urlBase + '/AddContact.php';
+    var url = '/LAMPAPI/AddContact.php';
 
     var xhr = new XMLHttpRequest();
     xhr.open("POST", url, true);
@@ -315,7 +321,7 @@ function searchContact() {
 
 	var jsonPayload = '{"search" : "' + srch + '","userId" : ' + userId + '}';
 
-	var url = urlBase + '/SearchContacts.php';
+	var url = '/LAMPAPI/SearchContacts.php';
 
 	var xhr = new XMLHttpRequest();
 	xhr.open("POST", url, true);
@@ -483,7 +489,7 @@ function saveContact(contactToFlip) {
 
 	//contactID here is the raw number pulled off the id
 	var jsonPayload = '{"FirstName" : "' + fName + '", "LastName" : ' + lName + '", "email" : ' + email + '", "phone" : ' + phone + '", "ContactID" : ' + str + '}';
-    var url = urlBase + '/UpdateContact.php';
+    var url = '/LAMPAPI/UpdateContact.php';
 
 	var xhr = new XMLHttpRequest();
     xhr.open("POST", url, true);
@@ -537,4 +543,12 @@ function getStyleSheet(unique_title) {
 			return sheet;
 		}
 	}
+}
+
+function pinContact(btn, contactToPin) {
+	var id = $(contactToPin).attr("id");
+	btn.style.color = "goldenrod";
+	var card = document.getElementById(id);
+	card.setAttribute("id", id + " pinned");
+	var ul = card.parentNode.parentNode;
 }

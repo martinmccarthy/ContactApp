@@ -131,3 +131,10 @@ hr {
     padding-right: 15px;
     padding-left: 15px;
 }
+
+#loginResult, #create-result {
+    color: red;
+    font-size: 15px;
+    font-weight: 700;
+    font-family: 'Poppins', 'sans-serrif';
+}
