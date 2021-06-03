@@ -12,7 +12,7 @@ var currentSearch = false;
 
 function doLogin()
 {
-	userId = -1;
+	userId = "";
 	firstName = "";
 	lastName = "";
 
@@ -37,17 +37,13 @@ function doLogin()
 			{
 				var jsonObject = JSON.parse(xhr.responseText);
 				//var jsonObject = JSON.parse( xhr.responseText );
-				userId = jsonObject.Login;
-
-				console.log("userId : " + userId);
-				console.log(jsonObject.Password);
-
 				if( jsonObject.Login != login || jsonObject.Password != hash)
 				{
 					document.getElementById("loginResult").innerHTML = "User/Password combination incorrect";
 					return;
 				}
-
+				
+				userId = jsonObject.Login;
 				firstName = jsonObject.FirstName;
 				lastName = jsonObject.LastName;
 
@@ -588,7 +584,7 @@ function pinContact(btn, contactToPin) {
 	var email = document.getElementById("contact-email-" + idNum);
 	var phone = document.getElementById("contact-phone-" + idNum);
 
-	ul.prepend(card);
+	ul.prepend(card.parentNode.parentNode);
 
 	var jsonPayload = '{"Login" : "' + userId + '", "FirstName" : "' + fName + '", "LastName" : ' + lName + '", "email" : ' + email + '", "phone" : ' + phone + '", "pinned" : ' + pinValue + '}';
     var url = '/LAMPAPI/UpdateContact.php';
