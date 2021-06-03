@@ -272,3 +272,11 @@ ul {
     transition: .7s;
     color: goldenrod;
 }
+
+#add-result {
+    color: red;
+    font-size: 15px;
+    font-weight: 700;
+    font-family: 'Poppins', 'sans-serrif';
+    text-align: center;
+}

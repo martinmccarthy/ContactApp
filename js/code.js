@@ -166,13 +166,18 @@ function addContact() {
 	var email = document.getElementById("email").value;
 	var phone = document.getElementById("phone").value;
 
+	if(phone.length > 10 || email.length > 100 || lName.length > 50 || fName.length > 50) {
+		document.getElementById("add-result").innerHTML = "Error, invalid input";
+		return;
+	}
+
 	document.getElementById("add-result").innerHTML = "";
 
 	var ul = document.getElementById("contact-ul");
 	var li = document.createElement("li");
 
 	contactId++;
-	var id = contactId; // find out how to pull this
+	var id = contactId;
 
 
 	li.setAttribute('id', "li-" + id);
@@ -219,7 +224,7 @@ function addContact() {
 
 	document.addContactForm.reset();
 
-    var jsonPayload = '{"Login" : "' + userId + '", "FirstName" : "' + fName + '", "LastName" : ' + lName + '", "email" : ' + email + '", "phone" : ' + phone + '", "ContactID" : ' + contactId + '}';
+    var jsonPayload = '{"Login" : "' + userId + '", "FirstName" : "' + fName + '", "LastName" : ' + lName + '", "email" : ' + email + '", "phone" : ' + phone + '", "pinned" : ' + 0 + '}';
     var url = '/LAMPAPI/AddContact.php';
 
     var xhr = new XMLHttpRequest();
@@ -229,7 +234,6 @@ function addContact() {
 		//var jsonObject = JSON.parse( xhr.responseText );
 		xhr.onreadystatechange = function() {
         if(this.readyState == 4 && this.status == 200) {
-			//contactId = jsonObject.ContactID;
             document.getElementById("add-result").innerHTML = "Contact Added";
 			/* this is where the add contact should go --> if it's added to the database then
 			   upload it to the list */
@@ -434,21 +438,27 @@ function scrollHandler() {
 
 window.addEventListener('scroll', scrollHandler);
 
-function editContact() {
-
-}
-
 function deleteContact(contactId) {
 	var proceed = confirm("This will remove the contact PERMANENTLY, are you sure you want to proceed?");
 	if (proceed) {
-  		document.getElementById($(contactId).attr("id")).remove();
-	} else {
-  		return;
-	}	
-	//console.log(li.parent);
+		var url = '/LAMPAPI/DeleteContact.php'
+		var xhr = new XMLHttpRequest();
+		xhr.open("POST", url, true);
+		xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+		try {
+			xhr.onreadystatechange = function() {
+				if(this.readyState == 4 && this.status == 200) {
+					document.getElementById($(contactId).attr("id")).remove();
+				}
+			};
+		xhr.send(jsonPayload);
+	}
+	catch(err) {
+		document.getElementById("search-results").innerHTML = err.message;
+	}
 
-	//var ul = document.getElementById("contact-ul");
-	//ul.removeChild(li);
+	}
+	else return;
 }
 
 function flipContact(cardSide, contactToFlip) {
@@ -473,12 +483,22 @@ function flipContact(cardSide, contactToFlip) {
 
 function saveContact(contactToFlip) {
 	var id = $(contactToFlip).attr("id");
+	
+	var pinValue = 0;
+
+	if(id.contains("pinned")) {
+		pinValue = 1;
+	}
 
 	console.log(id)
 	var fName = document.getElementById("edit-fname-" + id).value;
     var lName = document.getElementById("edit-lname-" + id).value;
 	var email = document.getElementById("edit-email-" + id).value;
 	var phone = document.getElementById("edit-phone-" + id).value;
+
+	if(phone.length > 10) {
+
+	}
 
 	var str = id;
 	str = str.split("-").pop();
@@ -487,27 +507,22 @@ function saveContact(contactToFlip) {
 	document.getElementById("contact-email-" + str).innerHTML = email;
 	document.getElementById("contact-phone-" + str).innerHTML = phone;
 
-	//contactID here is the raw number pulled off the id
-	var jsonPayload = '{"FirstName" : "' + fName + '", "LastName" : ' + lName + '", "email" : ' + email + '", "phone" : ' + phone + '", "ContactID" : ' + str + '}';
+	var jsonPayload = '{"FirstName" : "' + fName + '", "LastName" : ' + lName + '", "email" : ' + email + '", "phone" : ' + phone + '", "pinned" : ' + pinValue + '}';
     var url = '/LAMPAPI/UpdateContact.php';
 
 	var xhr = new XMLHttpRequest();
     xhr.open("POST", url, true);
     xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
     try {
-		var jsonObject = JSON.parse( xhr.responseText );
 		xhr.onreadystatechange = function() {
-        if(this.readyState == 4 && this.status == 200) {
-			//contactId = jsonObject.ContactID;
-            document.getElementById("delete-result").innerHTML = "Delete successful";
-			/* this is where the add contact should go --> if it's added to the database then
-			   upload it to the list */
+        	if(this.readyState == 4 && this.status == 200) {
+			
             }
         };
         xhr.send(jsonPayload);
     }
     catch(err) {
-        //document.getElementById("delete-result").innerHTML = err.message;
+		console.log(err);
     }
 
 	flipContact(1, contactToFlip);
@@ -547,8 +562,48 @@ function getStyleSheet(unique_title) {
 
 function pinContact(btn, contactToPin) {
 	var id = $(contactToPin).attr("id");
-	btn.style.color = "goldenrod";
+	var pinValue = 1;
 	var card = document.getElementById(id);
-	card.setAttribute("id", id + " pinned");
-	var ul = card.parentNode.parentNode;
+	var ul = card.parentNode.parentNode.parentNode;
+
+	if(btn.style.color = "goldenrod") {
+		pinValue = 0;
+		btn.style.color = "black";
+		var str = id.split(" ");
+		card.setAttribute("id", str[0]);
+	}
+	else {
+		btn.style.color = "goldenrod";
+		card.setAttribute("id", id + " pinned");
+	}
+
+	var str = id;
+	idNum = str.split("-").pop();
+
+	var name = document.getElementById("contact-name-" + idNum);
+	name = $(name).attr("id")
+	name = name.split(" ");
+	var fName = name[0];
+	var lName = name[1];
+	var email = document.getElementById("contact-email-" + idNum);
+	var phone = document.getElementById("contact-phone-" + idNum);
+
+	ul.prepend(card);
+
+	var jsonPayload = '{"Login" : "' + userId + '", "FirstName" : "' + fName + '", "LastName" : ' + lName + '", "email" : ' + email + '", "phone" : ' + phone + '", "pinned" : ' + pinValue + '}';
+    var url = '/LAMPAPI/UpdateContact.php';
+	var xhr = new XMLHttpRequest();
+    xhr.open("POST", url, true);
+    xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+    try {
+		xhr.onreadystatechange = function() {
+        	if(this.readyState == 4 && this.status == 200) {
+			
+            }
+        };
+        xhr.send(jsonPayload);
+    }
+    catch(err) {
+		console.log(err);
+    }
 }
