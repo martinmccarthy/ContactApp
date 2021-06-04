@@ -562,7 +562,7 @@ function pinContact(btn, contactToPin) {
 	var card = document.getElementById(id);
 	var ul = card.parentNode.parentNode.parentNode;
 
-	if(btn.style.color = "goldenrod") {
+	if(btn.style.color == "goldenrod") {
 		pinValue = 0;
 		btn.style.color = "black";
 		var str = id.split(" ");
