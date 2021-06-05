@@ -119,7 +119,8 @@ label {
 
 hr {
     margin-top: 10px;
-    border: 3px solid white;
+    border: 3px solid -webkit-linear-gradient(to top, #c9d6ff, #e2e2e2);
+    border: 3px solid linear-gradient(to top, #c9d6ff, #e2e2e2);
     border-radius: 5px;
 }
 
@@ -129,4 +130,11 @@ hr {
     width: 100%;
     padding-right: 15px;
     padding-left: 15px;
+}
+
+#loginResult, #create-result {
+    color: red;
+    font-size: 15px;
+    font-weight: 700;
+    font-family: 'Poppins', 'sans-serrif';
 }

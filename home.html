@@ -54,28 +54,32 @@
                             <input type="text" id="email" class="txt" placeholder="&#xf0e0 Email"/>
                             <input type="text" id="phone" class="txt" placeholder="&#xf879 Phone"/>
                             <button type="button" class="submit-btn" onclick="addContact();">Submit</button>
+                            <span id="add-result"></span>
+
                         </form>
                     </div>
                 </div>
-                <span id="add-result"></span>
             </div>
         </div>
 
+        <div class="result-table">
+            <ul class="contact-ul", id="search-list">
+  
+            </ul>
+        </div>
+        <hr id="inbetween">
         <div class="table">
             <ul class="contact-ul", id="contact-ul">
 
             </ul>
         </div>
-        <div class="result-table">
-          <ul class="contact-ul", id="search-list">
-
-          </ul>
-        </div>
+        
 
         <script id="new-card" type="text/html">
             <div class="container">
                 <div class="card" id="card-">
                     <div class="contact-front" id="contact-front-">
+                        <button type="button" class="pin" id="pin" onclick="pinContact(this, this.parentNode.parentNode);"><i class="fas fa-thumbtack"></i></button>
                         <h1 class="contact-label">Name</h1>
                         <h2 class="contact-info contact-name" id="contact-name-">null</h2>
                         <h1 class="contact-label">Email</h1>
