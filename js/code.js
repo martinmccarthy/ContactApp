@@ -42,7 +42,7 @@ function doLogin()
 					document.getElementById("loginResult").innerHTML = "User/Password combination incorrect";
 					return;
 				}
-				
+
 				userId = jsonObject.Login;
 				firstName = jsonObject.FirstName;
 				lastName = jsonObject.LastName;
@@ -291,19 +291,6 @@ function search() {
 			currentSearchList.appendChild(card);
 		}
 	}
-
-
-	// for (i = 0; i < contactNameList.length && i != index; ++i)
-	// 	document.getElementById(contactNameList[i].id).parentNode.parentNode.parentNode.parentNode.setAttribute("style", "visibility: hidden;");
-
-	// document.getElementById(id).parentNode.parentNode.parentNode.parentNode.setAttribute("style", "visibility: visible;");
-
-	// var card = document.getElementById(contactNameList[index].id).parentNode.parentNode.parentNode.parentNode;
-	// var ul = document.getElementById("contact-ul").setAttribute("style", "visibility: hidden");
-	// makeHidden();
-	// var resultList = document.getElementById('search-list');
-	// ul.appendChild(card);
-	// resultList.appendChild(card);
 }
 
 function searchContact() {
@@ -347,29 +334,26 @@ function searchContact() {
 	}
 }
 
-// function predictor(input) {
-//
-// 	// Gotta make sure that you can actually access the cards
-// 	// as they appear from the database.
-//
-// 	var i, div, txt;
-// 	var input = document.getElementById('search-txt');
-// 	var filter = input.value.toUpperCase();
-// 	var ul = document.getElementById('contact-ul');
-// 	var li = ul.getElementsByTagName('li');
-//
-// 	for (i = 0; i < li.length; i++)
-// 	{
-// 		div = li[i].getElementsByTagName("div")[0];
-// 		txt = div.textContent || div.innerText;
-// 		if (txt.toUpperCase().indexOf(filter) > -1) {
-// 			li[i].style.display = "";
-// 		}
-// 		else {
-// 			li[i].style.display = "none";
-// 		}
-// 	}
-// }
+function predictor() {
+
+	var i, div, txt;
+	var input = document.getElementById('search-txt');
+	var filter = input.value.toUpperCase();
+	var ul = document.getElementById('contact-ul');
+	var li = ul.getElementsByTagName('li');
+
+	for (i = 0; i < li.length; i++)
+	{
+		div = li[i].getElementsByTagName("div")[searchVal];
+		txt = div.textContent || div.innerText;
+		if (txt.toUpperCase().indexOf(filter) > -1) {
+			li[i].style.display = "";
+		}
+		else {
+			li[i].style.display = "none";
+		}
+	}
+}
 
 function expandForm() {
     var form = document.getElementById("expand-add");
@@ -479,7 +463,7 @@ function flipContact(cardSide, contactToFlip) {
 
 function saveContact(contactToFlip) {
 	var id = $(contactToFlip).attr("id");
-	
+
 	var pinValue = 0;
 
 	if(id.contains("pinned")) {
@@ -512,7 +496,7 @@ function saveContact(contactToFlip) {
     try {
 		xhr.onreadystatechange = function() {
         	if(this.readyState == 4 && this.status == 200) {
-			
+
             }
         };
         xhr.send(jsonPayload);
@@ -594,7 +578,7 @@ function pinContact(btn, contactToPin) {
     try {
 		xhr.onreadystatechange = function() {
         	if(this.readyState == 4 && this.status == 200) {
-			
+
             }
         };
         xhr.send(jsonPayload);
