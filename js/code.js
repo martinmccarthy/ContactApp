@@ -285,19 +285,27 @@ function search() {
 			currentSearchList.appendChild(card);
 		}
 	}
+}
 
+function predictor() {
 
-	// for (i = 0; i < contactNameList.length && i != index; ++i)
-	// 	document.getElementById(contactNameList[i].id).parentNode.parentNode.parentNode.parentNode.setAttribute("style", "visibility: hidden;");
+	var i, div, txt;
+	var input = document.getElementById('search-txt');
+	var filter = input.value.toUpperCase();
+	var ul = document.getElementById('contact-ul');
+	var li = ul.getElementsByTagName('li');
 
-	// document.getElementById(id).parentNode.parentNode.parentNode.parentNode.setAttribute("style", "visibility: visible;");
-
-	// var card = document.getElementById(contactNameList[index].id).parentNode.parentNode.parentNode.parentNode;
-	// var ul = document.getElementById("contact-ul").setAttribute("style", "visibility: hidden");
-	// makeHidden();
-	// var resultList = document.getElementById('search-list');
-	// ul.appendChild(card);
-	// resultList.appendChild(card);
+	for (i = 0; i < li.length; i++)
+	{
+		div = li[i].getElementsByTagName("div")[searchVal];
+		txt = div.textContent || div.innerText;
+		if (txt.toUpperCase().indexOf(filter) > -1) {
+			li[i].style.display = "";
+		}
+		else {
+			li[i].style.display = "none";
+		}
+	}
 }
 
 function searchContact() {
@@ -341,29 +349,6 @@ function searchContact() {
 	}
 }
 
-// function predictor(input) {
-//
-// 	// Gotta make sure that you can actually access the cards
-// 	// as they appear from the database.
-//
-// 	var i, div, txt;
-// 	var input = document.getElementById('search-txt');
-// 	var filter = input.value.toUpperCase();
-// 	var ul = document.getElementById('contact-ul');
-// 	var li = ul.getElementsByTagName('li');
-//
-// 	for (i = 0; i < li.length; i++)
-// 	{
-// 		div = li[i].getElementsByTagName("div")[0];
-// 		txt = div.textContent || div.innerText;
-// 		if (txt.toUpperCase().indexOf(filter) > -1) {
-// 			li[i].style.display = "";
-// 		}
-// 		else {
-// 			li[i].style.display = "none";
-// 		}
-// 	}
-// }
 
 function expandForm() {
     var form = document.getElementById("expand-add");
@@ -601,8 +586,8 @@ function pinContact(btn, contactToPin) {
     }
 }
 
-
-window.onload = function() {
-	if(window.location.href == "home.html")
+if(window.location.href == "home.html") {
+	window.onload = function() {
 		document.getElementById("userName").innerHTML = "Logged in as " + firstName + " " + lastName;
-};
+	};
+}
