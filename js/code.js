@@ -224,7 +224,7 @@ function addContact() {
 				document.getElementById("contact-name-" + id).innerHTML = fName + " " + lName;
 				document.getElementById("contact-email-" + id).innerHTML = email;
 				document.getElementById("contact-phone-" + id).innerHTML = phone;
-				document.getElementById("add-result").innerHTML = "Contact Added";
+				//document.getElementById("add-result").innerHTML = "Contact Added";
 			}
         };
 		console.log(jsonPayload);
@@ -415,9 +415,24 @@ window.addEventListener('scroll', scrollHandler);
 function deleteContact(contactId) {
 	var proceed = confirm("This will remove the contact PERMANENTLY, are you sure you want to proceed?");
 	if (proceed) {
-		console.log(contactId);
-		var jsonPayload = '{"FirstName" : "' + fName + '", "LastName" : ' + lName + '", "email" : ' + email + '", "phone" : ' + phone + '", "pinned" : ' + pinValue + '}';
-		var url = '/LAMPAPI/DeleteContact.php'
+		var str;
+		if($(contactId).attr("id").includes("pinned")) {
+			$(contactId).attr("id").replace(" pinned", "");	
+		}
+		str = $(contactId).attr("id");
+		str = str.split("-").pop();
+		console.log(str);
+
+		var fullName = $("contact-name-" + str).text();
+		fullName = fullName.split(" ");
+		var fName = fullName[0];
+		var lName = fullName[1];
+		
+		var email = document.getElementById("contact-email-" + str);
+		var phone = document.getElementById("contact-phone-" + str);
+		
+		var jsonPayload = '{"Login" : "' + userId + '", "FirstName" : "' + fName + '", "LastName" : "' + lName + '", "email" : "' + email + '", "phone" : "' + phone + '"}';
+		var url = '/LAMPAPI/DeleteContact.php';
 		var xhr = new XMLHttpRequest();
 		xhr.open("POST", url, true);
 		xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
@@ -425,7 +440,7 @@ function deleteContact(contactId) {
 			xhr.onreadystatechange = function() {
 				if(this.readyState == 4 && this.status == 200) {
 					document.getElementById($(contactId).attr("id")).remove();
-					document.getElementById("delete-result").innerHTML = "Successfully Removed";
+					//document.getElementById("delete-result").innerHTML = "Contact Deleted Successfully";
 				}
 			};
 			xhr.send(jsonPayload);
@@ -484,7 +499,7 @@ function saveContact(contactToFlip) {
 	document.getElementById("contact-email-" + str).innerHTML = email;
 	document.getElementById("contact-phone-" + str).innerHTML = phone;
 
-	var jsonPayload = '{"FirstName" : "' + fName + '", "LastName" : ' + lName + '", "email" : ' + email + '", "phone" : ' + phone + '", "pinned" : ' + pinValue + '}';
+	var jsonPayload = '{"FirstName" : "' + fName + '", "LastName" : ' + lName + '", "email" : ' + email + '", "phone" : ' + phone + '", "Login" : ' + userId + '}';
     var url = '/LAMPAPI/UpdateContact.php';
 
 	var xhr = new XMLHttpRequest();
@@ -557,8 +572,7 @@ function pinContact(btn, contactToPin) {
 	var str = id;
 	idNum = str.split("-").pop();
 
-	var name = document.getElementById("contact-name-" + idNum);
-	name = $(name).attr("id")
+	var name = $("contact-name-" + idNum).text();
 	name = name.split(" ");
 	var fName = name[0];
 	var lName = name[1];
