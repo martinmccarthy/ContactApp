@@ -156,9 +156,97 @@ function readCookie()
 //
 // }
 
+function loadContacts(contactToFlip) {
+
+	// var contacts = "";
+	var ul = document.getElementById('contact-ul');
+	var li = ul.getElementsByTagName('li');
+	var pinValue = 0;
+	var id = $(contactToFlip).attr("id");
+
+	var jsonPayload = '{"userId" : ' + userId + '}';
+	var url = '/LAMPAPI/ReadContacts.php';
+
+	var xhr = new XMLHttpRequest();
+	xhr.open("POST", url, true);
+	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+	try {
+		xhr.onreadystatechange = function() {
+			if (this.readyState == 4 && this.status == 200) {
+				// document.getElementById("search-results").innerHTML = "Contact found";
+				var jsonObject = JSON.parse(xhr.responseText);
+				for (var i = 0; i < jsonObject.results.length; ++i)
+				{
+					// ul.appendChild(json.results[i]);
+					var fName = jsonObject.FirstName;
+				  var lName = jsonObject.LastName;
+					var email = jsonObject.email;
+					var phone = jsonObject.phone;
+
+					var ul = document.getElementById("contact-ul");
+					var li = document.createElement("li");
+
+					contactId++;
+					var id = contactId;
+
+					li.setAttribute('id', "li-" + id);
+					li.setAttribute('class', "listed-contacts");
+					li.innerHTML = document.getElementById("new-card").innerHTML;
+
+					ul.appendChild(li);
+
+					var contactName = document.getElementById("contact-name-");
+					var contactEmail = document.getElementById("contact-email-");
+					var contactPhone = document.getElementById("contact-phone-");
+
+					var contactEditfName = document.getElementById("edit-fname-");
+					var contactEditlName = document.getElementById("edit-lname-");
+					var contactEditEmail = document.getElementById("edit-email-");
+					var contactEditPhone = document.getElementById("edit-phone-");
+
+					var contactCard = document.getElementById("card-");
+					var contactFront = document.getElementById("contact-front-");
+					var contactBack = document.getElementById("contact-back-");
+
+					contactName.setAttribute('id', "contact-name-" + id);
+					contactEmail.setAttribute('id', "contact-email-" + id);
+					contactPhone.setAttribute('id', "contact-phone-" + id);
+
+					contactEditfName.setAttribute('id', "edit-fname-card-" + id);
+					contactEditlName.setAttribute('id', "edit-lname-card-" + id);
+					contactEditEmail.setAttribute('id', "edit-email-card-" + id);
+					contactEditPhone.setAttribute('id', "edit-phone-card-" + id);
+
+					contactEditfName.setAttribute('placeholder', fName);
+					contactEditlName.setAttribute('placeholder', lName);
+					contactEditEmail.setAttribute('placeholder', email);
+					contactEditPhone.setAttribute('placeholder', phone);
+
+
+					contactCard.setAttribute('id', "card-" + id);
+					contactFront.setAttribute('id', "contact-front-card-" + id);
+					contactBack.setAttribute('id', "contact-back-card-" + id);
+
+					document.getElementById("contact-name-" + id).innerHTML = fName + " " + lName;
+					document.getElementById("contact-email-" + id).innerHTML = email;
+					document.getElementById("contact-phone-" + id).innerHTML = phone;
+
+					// document.addContactForm.reset();
+				}
+			}
+		};
+		xhr.send(jsonPayload);
+	}
+	catch(err) {
+		document.getElementById('contact-ul').innerHTML = err.message;
+	}
+
+	findPins();
+}
+
 function addContact() {
-    var fName = document.getElementById("fname").value;
-    var lName = document.getElementById("lname").value;
+  var fName = document.getElementById("fname").value;
+  var lName = document.getElementById("lname").value;
 	var email = document.getElementById("email").value;
 	var phone = document.getElementById("phone").value;
 
@@ -421,7 +509,7 @@ window.addEventListener('scroll', scrollHandler);
 function deleteContact(contactId) {
 	var proceed = confirm("This will remove the contact PERMANENTLY, are you sure you want to proceed?");
 	if (proceed) {
-		var url = '/LAMPAPI/DeleteContact.php'
+		var url = '/LAMPAPI/DeleteContact.php';
 		var xhr = new XMLHttpRequest();
 		xhr.open("POST", url, true);
 		xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
@@ -571,19 +659,19 @@ function pinContact(btn, contactToPin) {
 	ul.prepend(card.parentNode.parentNode);
 
 	var jsonPayload = '{"Login" : "' + userId + '", "FirstName" : "' + fName + '", "LastName" : ' + lName + '", "email" : ' + email + '", "phone" : ' + phone + '", "pinned" : ' + pinValue + '}';
-    var url = '/LAMPAPI/UpdateContact.php';
+	var url = '/LAMPAPI/UpdateContact.php';
 	var xhr = new XMLHttpRequest();
-    xhr.open("POST", url, true);
-    xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
-    try {
-		xhr.onreadystatechange = function() {
-        	if(this.readyState == 4 && this.status == 200) {
+	xhr.open("POST", url, true);
+	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+	try {
+	xhr.onreadystatechange = function() {
+		if(this.readyState == 4 && this.status == 200) {
 
-            }
-        };
-        xhr.send(jsonPayload);
-    }
-    catch(err) {
+		}
+	};
+	xhr.send(jsonPayload);
+	}
+	catch(err) {
 		console.log(err);
-    }
+	}
 }
