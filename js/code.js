@@ -39,14 +39,12 @@ function doLogin()
 					return;
 				}
 				
+				userId = jsonObject.login;
+				firstName = jsonObject.FirstName;
+				lastName = jsonObject.LastName;
 				saveCookie();
 
 				window.location.href = "home.html";
-
-				userId = jsonObject.Login;
-				firstName = jsonObject.FirstName;
-				lastName = jsonObject.LastName;
-
 			}
 		};
 		xhr.send(jsonPayload);
@@ -97,10 +95,8 @@ function doCreate()
 				userId = userLogin;
 				firstName = fname;
 				lastName = lname;
+				saveCookie();
 				window.location.href = "home.html";
-				window.onload = function() {
-					document.getElementById("userName").innerHTML = "Logged in as " + firstName + " " + lastName;
-				};
 			}
 		};
 		xhr.send(jsonPayload);
@@ -117,12 +113,11 @@ function saveCookie()
 	var minutes = 20;
 	var date = new Date();
 	date.setTime(date.getTime()+(minutes*60*1000));
-	document.cookie = "FirstName=" + firstName + ",LastName=" + lastName + ";expires=" + date.toGMTString();
+	document.cookie = "FirstName=" + firstName + ",LastName=" + lastName + ",userId=" + userId + ";expires=" + date.toGMTString();
 }
 
 function readCookie()
 {
-	userId = -1;
 	var data = document.cookie;
 	var splits = data.split(",");
 	for(var i = 0; i < splits.length; i++)
@@ -137,9 +132,13 @@ function readCookie()
 		{
 			lastName = tokens[1];
 		}
+		else if( tokens[0] == "userId" )
+		{
+			userId = tokens[1];
+		}
 	}
 
-	if( userId < 0 )
+	if( userId.length == 0 )
 	{
 		window.location.href = "index.html";
 	}
@@ -584,10 +583,4 @@ function pinContact(btn, contactToPin) {
     catch(err) {
 		console.log(err);
     }
-}
-
-if(window.location.href == "home.html") {
-	window.onload = function() {
-		document.getElementById("userName").innerHTML = "Logged in as " + firstName + " " + lastName;
-	};
 }
