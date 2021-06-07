@@ -273,7 +273,7 @@ ul {
     color: goldenrod;
 }
 
-#add-result {
+#add-result, #delete-result {
     color: red;
     font-size: 15px;
     font-weight: 700;

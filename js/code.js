@@ -12,10 +12,6 @@ var currentSearch = false;
 
 function doLogin()
 {
-	userId = "";
-	firstName = "";
-	lastName = "";
-
 	var login = document.getElementById("loginName").value;
 	var password = document.getElementById("loginPassword").value;
 	var hash = md5( password );
@@ -43,13 +39,13 @@ function doLogin()
 					return;
 				}
 				
-				userId = jsonObject.Login;
-				firstName = jsonObject.FirstName;
-				lastName = jsonObject.LastName;
-
 				saveCookie();
 
 				window.location.href = "home.html";
+
+				userId = jsonObject.Login;
+				firstName = jsonObject.FirstName;
+				lastName = jsonObject.LastName;
 
 			}
 		};
@@ -63,7 +59,7 @@ function doLogin()
 
 function doLogout()
 {
-	userId = -1;
+	userId = "";
 	firstName = "";
 	lastName = "";
 	document.cookie = "FirstName= ; expires = Thu, 01 Jan 1970 00:00:00 GMT";
@@ -102,8 +98,9 @@ function doCreate()
 				firstName = fname;
 				lastName = lname;
 				window.location.href = "home.html";
-				var topName = document.getElementById("userName");
-				topName.innerHTML = "Logged in as " + firstName + " " + lastName;
+				window.onload = function() {
+					document.getElementById("userName").innerHTML = "Logged in as " + firstName + " " + lastName;
+				};
 			}
 		};
 		xhr.send(jsonPayload);
@@ -152,89 +149,86 @@ function readCookie()
 	}
 }
 
-// function appendContact(fname, lname, email, phone) {
-//
-// }
-
 function addContact() {
     var fName = document.getElementById("fname").value;
     var lName = document.getElementById("lname").value;
 	var email = document.getElementById("email").value;
 	var phone = document.getElementById("phone").value;
 
+	if((lName.length + fName.length) < 1) {
+		document.getElementById("add-result").innerHTML = "Error, contact can't have no name";
+		return;
+	}
+
 	if(phone.length > 10 || email.length > 100 || lName.length > 50 || fName.length > 50) {
 		document.getElementById("add-result").innerHTML = "Error, invalid input";
 		return;
 	}
 
-	document.getElementById("add-result").innerHTML = "";
-
-	var ul = document.getElementById("contact-ul");
-	var li = document.createElement("li");
-
-	contactId++;
-	var id = contactId;
-
-
-	li.setAttribute('id', "li-" + id);
-	li.setAttribute('class', "listed-contacts");
-	li.innerHTML = document.getElementById("new-card").innerHTML;
-
-	ul.appendChild(li);
-
-	var contactName = document.getElementById("contact-name-");
-	var contactEmail = document.getElementById("contact-email-");
-	var contactPhone = document.getElementById("contact-phone-");
-
-	var contactEditfName = document.getElementById("edit-fname-");
-	var contactEditlName = document.getElementById("edit-lname-");
-	var contactEditEmail = document.getElementById("edit-email-");
-	var contactEditPhone = document.getElementById("edit-phone-");
-
-	var contactCard = document.getElementById("card-");
-	var contactFront = document.getElementById("contact-front-");
-	var contactBack = document.getElementById("contact-back-");
-
-	contactName.setAttribute('id', "contact-name-" + id);
-	contactEmail.setAttribute('id', "contact-email-" + id);
-	contactPhone.setAttribute('id', "contact-phone-" + id);
-
-	contactEditfName.setAttribute('id', "edit-fname-card-" + id);
-	contactEditlName.setAttribute('id', "edit-lname-card-" + id);
-	contactEditEmail.setAttribute('id', "edit-email-card-" + id);
-	contactEditPhone.setAttribute('id', "edit-phone-card-" + id);
-
-	contactEditfName.setAttribute('placeholder', fName);
-	contactEditlName.setAttribute('placeholder', lName);
-	contactEditEmail.setAttribute('placeholder', email);
-	contactEditPhone.setAttribute('placeholder', phone);
-
-
-	contactCard.setAttribute('id', "card-" + id);
-	contactFront.setAttribute('id', "contact-front-card-" + id);
-	contactBack.setAttribute('id', "contact-back-card-" + id);
-
-	document.getElementById("contact-name-" + id).innerHTML = fName + " " + lName;
-	document.getElementById("contact-email-" + id).innerHTML = email;
-	document.getElementById("contact-phone-" + id).innerHTML = phone;
-
 	document.addContactForm.reset();
 
-    var jsonPayload = '{"Login" : "' + userId + '", "FirstName" : "' + fName + '", "LastName" : ' + lName + '", "email" : ' + email + '", "phone" : ' + phone + '", "pinned" : ' + 0 + '}';
-    var url = '/LAMPAPI/AddContact.php';
+	document.getElementById("add-result").innerHTML = "";
+
+    var jsonPayload = '{"Login" : "' + userId + '", "FirstName" : "' + fName + '", "LastName" : "' + lName + '", "email" : "' + email + '", "phone" : "' + phone + '", "pinned" : ' + 0 + '}';
+    var url = '/LAMPAPI/AddContacts.php';
 
     var xhr = new XMLHttpRequest();
     xhr.open("POST", url, true);
     xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
     try {
-		//var jsonObject = JSON.parse( xhr.responseText );
 		xhr.onreadystatechange = function() {
-        if(this.readyState == 4 && this.status == 200) {
-            document.getElementById("add-result").innerHTML = "Contact Added";
-			/* this is where the add contact should go --> if it's added to the database then
-			   upload it to the list */
-            }
+			if(this.readyState == 4 && this.status == 200) {
+				var ul = document.getElementById("contact-ul");
+				var li = document.createElement("li");
+
+				contactId++;
+				var id = contactId;
+
+				li.setAttribute('id', "li-" + id);
+				li.setAttribute('class', "listed-contacts");
+				li.innerHTML = document.getElementById("new-card").innerHTML;
+
+				ul.appendChild(li);
+
+				var contactName = document.getElementById("contact-name-");
+				var contactEmail = document.getElementById("contact-email-");
+				var contactPhone = document.getElementById("contact-phone-");
+
+				var contactEditfName = document.getElementById("edit-fname-");
+				var contactEditlName = document.getElementById("edit-lname-");
+				var contactEditEmail = document.getElementById("edit-email-");
+				var contactEditPhone = document.getElementById("edit-phone-");
+
+				var contactCard = document.getElementById("card-");
+				var contactFront = document.getElementById("contact-front-");
+				var contactBack = document.getElementById("contact-back-");
+
+				contactName.setAttribute('id', "contact-name-" + id);
+				contactEmail.setAttribute('id', "contact-email-" + id);
+				contactPhone.setAttribute('id', "contact-phone-" + id);
+
+				contactEditfName.setAttribute('id', "edit-fname-card-" + id);
+				contactEditlName.setAttribute('id', "edit-lname-card-" + id);
+				contactEditEmail.setAttribute('id', "edit-email-card-" + id);
+				contactEditPhone.setAttribute('id', "edit-phone-card-" + id);
+
+				contactEditfName.setAttribute('placeholder', fName);
+				contactEditlName.setAttribute('placeholder', lName);
+				contactEditEmail.setAttribute('placeholder', email);
+				contactEditPhone.setAttribute('placeholder', phone);
+
+
+				contactCard.setAttribute('id', "card-" + id);
+				contactFront.setAttribute('id', "contact-front-card-" + id);
+				contactBack.setAttribute('id', "contact-back-card-" + id);
+
+				document.getElementById("contact-name-" + id).innerHTML = fName + " " + lName;
+				document.getElementById("contact-email-" + id).innerHTML = email;
+				document.getElementById("contact-phone-" + id).innerHTML = phone;
+				document.getElementById("add-result").innerHTML = "Contact Added";
+			}
         };
+		console.log(jsonPayload);
         xhr.send(jsonPayload);
     }
     catch(err) {
@@ -321,7 +315,7 @@ function searchContact() {
 
 	var jsonPayload = '{"search" : "' + srch + '","userId" : ' + userId + '}';
 
-	var url = '/LAMPAPI/SearchContacts.php';
+	var url = '/LAMPAPI/ContactsSearch.php';
 
 	var xhr = new XMLHttpRequest();
 	xhr.open("POST", url, true);
@@ -437,6 +431,8 @@ window.addEventListener('scroll', scrollHandler);
 function deleteContact(contactId) {
 	var proceed = confirm("This will remove the contact PERMANENTLY, are you sure you want to proceed?");
 	if (proceed) {
+		console.log(contactId);
+		var jsonPayload = '{"FirstName" : "' + fName + '", "LastName" : ' + lName + '", "email" : ' + email + '", "phone" : ' + phone + '", "pinned" : ' + pinValue + '}';
 		var url = '/LAMPAPI/DeleteContact.php'
 		var xhr = new XMLHttpRequest();
 		xhr.open("POST", url, true);
@@ -445,13 +441,14 @@ function deleteContact(contactId) {
 			xhr.onreadystatechange = function() {
 				if(this.readyState == 4 && this.status == 200) {
 					document.getElementById($(contactId).attr("id")).remove();
+					document.getElementById("delete-result").innerHTML = "Successfully Removed";
 				}
 			};
-		xhr.send(jsonPayload);
-	}
-	catch(err) {
-		document.getElementById("search-results").innerHTML = err.message;
-	}
+			xhr.send(jsonPayload);
+		}
+		catch(err) {
+			console.log(err);
+		}
 
 	}
 	else return;
@@ -464,10 +461,9 @@ function flipContact(cardSide, contactToFlip) {
 	var back = document.getElementById('contact-back-' + contactToFlip)
 
 	if(cardSide == 0) {
-		front.style.display = 'none'
+		front.style.display = 'none';
 		back.style.backfaceVisibility = 'visible';
 		back.style.display = 'block';
-		editContact();
 	}
 	else if(cardSide == 1) {
 		back.style.display = 'none';
@@ -482,18 +478,19 @@ function saveContact(contactToFlip) {
 	
 	var pinValue = 0;
 
-	if(id.contains("pinned")) {
+	if(id.includes("pinned")) {
 		pinValue = 1;
 	}
 
-	console.log(id)
+
 	var fName = document.getElementById("edit-fname-" + id).value;
     var lName = document.getElementById("edit-lname-" + id).value;
 	var email = document.getElementById("edit-email-" + id).value;
 	var phone = document.getElementById("edit-phone-" + id).value;
 
-	if(phone.length > 10) {
-
+	if(phone.length > 10 || email.length > 100 || lName.length > 50 || fName.length > 50) {
+		document.getElementById("edit-error").innerHTML = "Input length too long";
+		return;
 	}
 
 	var str = id;
@@ -562,7 +559,7 @@ function pinContact(btn, contactToPin) {
 	var card = document.getElementById(id);
 	var ul = card.parentNode.parentNode.parentNode;
 
-	if(btn.style.color == "goldenrod") {
+	if(id.includes("pinned")) {
 		pinValue = 0;
 		btn.style.color = "black";
 		var str = id.split(" ");
@@ -603,3 +600,9 @@ function pinContact(btn, contactToPin) {
 		console.log(err);
     }
 }
+
+
+window.onload = function() {
+	if(window.location.href == "home.html")
+		document.getElementById("userName").innerHTML = "Logged in as " + firstName + " " + lastName;
+};
