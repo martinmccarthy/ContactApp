@@ -432,7 +432,7 @@ function predictor() {
 
 	for (i = 0; i < li.length; i++)
 	{
-		div = li[i].getElementsByTagName("div")[searchVal];
+		div = li[i].getElementsByClassName("contact-info")[searchVal];
 		txt = div.textContent || div.innerText;
 		if (txt.toUpperCase().indexOf(filter) > -1) {
 			li[i].style.display = "";
