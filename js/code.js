@@ -39,7 +39,7 @@ function doLogin()
 					return;
 				}
 				
-				userId = jsonObject.login;
+				userId = jsonObject.Login;
 				firstName = jsonObject.FirstName;
 				lastName = jsonObject.LastName;
 				saveCookie();
