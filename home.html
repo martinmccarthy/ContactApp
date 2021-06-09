@@ -44,8 +44,8 @@
                         <button class="list-btn" id="phone-btn" onclick="displayOnClick('Phone');searchField(2);">Phone</button>
                     </div>
                 </div>
-                <input type="text" class="searching-txt" id="search-txt" placeholder="Search for a Contact" onkeyup="predictor()"/>
-                <button type="button" class="btn" id="search-btn" onclick="search();"><i class="fas fa-search"></i></button>
+                <input type="text" class="searching-txt" id="search-txt" placeholder="Search for a Contact"/>
+                <button type="button" class="search-btn" id="search-btn" onclick="searchContact();"><i class="fas fa-search"></i></button>
                 <span id="search-results"></span>
                 <p class="contact-list"></p>
               </div>
@@ -69,12 +69,12 @@
 
         <span id="delete-result"></span>
 
-        <div class="result-table">
+        <!-- <div class="result-table">
             <ul class="contact-ul", id="search-list">
   
             </ul>
-        </div>
-        <hr id="inbetween">
+        </div> -->
+        <!--<hr id="inbetween">-->
         <div class="table">
             <ul class="contact-ul", id="contact-ul">
 

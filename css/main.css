@@ -161,7 +161,7 @@ body {
     border: black solid 2px;
 }
 
-.btn {
+.search-btn {
     display: block;
     padding: 10px;
     float: right;
@@ -170,12 +170,14 @@ body {
     width: 10%;
     font-size: 16px;
     border: none;
-    cursor: pointer;
     background: transparent;
     height: 100%;
+    cursor: pointer;
+    border-top-right-radius: 25px;
+    border-bottom-right-radius: 25px;
 }
 
-.btn:hover {
+.search-btn:hover {
     transition: .5s;
     background: black;
     color: white;
@@ -275,11 +277,6 @@ body {
 
 #expand-search-btn {
     margin-right: 20px;
-}
-
-#search-btn {
-    border-top-right-radius: 25px;
-    border-bottom-right-radius: 25px;
 }
 
 #expand-add-btn {
