@@ -8,24 +8,41 @@ header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers
 
 	$searchResults = "";
 	$searchCount = 0;
+	$search = "%" .$inData["search"] ."%";
+	//$searchType = $inData["searchPayload"];
 
-
+	#Connect to DataBase
 	$conn = new mysqli("localhost", "web", "Group232021Summ3r", "Contacks");
 	if ($conn->connect_error)
 	{
 		returnWithError( $conn->connect_error );
 	}
-	else
-	{
+	else{
 
-		$stmt = $conn->prepare("SELECT * from  Contacts Where (FirstName like ? or  LastName like ?) and Login like ?");
-		$FirstName = "%" . $inData["FirstName"] . "%";
-		$LastName = "%" . $inData["LastName"] . "%";
-		//$Login = "%" . $inData["Login"] . "%";
-		//$user = "%" .$inData["search"] . "%";
-		$stmt->bind_param("sss", $FirstName, $LastName, $inData["Login"]);
-		$stmt->execute();
+		//SQL STATMENT TO SEARCH THE USER CONTACTS
+		//$stmt = $conn->prepare("SELECT * FROM Contacts WHERE (Name = '$searchType') and ( Email = '$searchType') and ( Phone = '$searchType') and Login = ? ");	
 		
+		$searchType = $inData["searchType"];
+
+
+		if(strcmp($searchType, "name") == 0){
+			$stmt = $conn->prepare("SELECT * from Contacts where (FirstName like ? or LastName like ?) and Login=?");
+			$stmt->bind_param("sss", $search, $search, $inData["Login"]);
+			
+
+
+		}else if(strcmp($searchType, "email") == 0){
+			$stmt = $conn->prepare("SELECT * from Contacts where email like ? and Login=?");
+			$stmt->bind_param("ss", $search, $inData["Login"]);
+			
+
+		}else{
+			$stmt = $conn->prepare("SELECT * from Contacts where phone like ? and Login=?");
+			$stmt->bind_param("ss", $search,$inData["Login"]);
+
+
+		}
+		$stmt->execute();
 		$result = $stmt->get_result();
 
 		while($row = $result->fetch_assoc())
@@ -35,8 +52,7 @@ header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers
 				$searchResults .= ",";
 			}
 			$searchCount++;
-			$searchResults .= '{"FirstName":"' . $row["FirstName"] . '", "LastName":"' . $row["LastName"] . '", "email":"' . $row["email"] . '", "phone":"' . $row["phone"] . '","DateCreated":"' . $row["DateCreated"] . '"}';
-
+			$searchResults .=  json_encode($row);
 		}
 
 		if($searchCount == 0)
@@ -50,7 +66,6 @@ header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers
 
 		$stmt->close();
 		$conn->close();
-
 	}
 
 	function getRequestInfo()
