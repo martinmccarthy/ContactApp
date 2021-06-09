@@ -9,7 +9,6 @@ header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers
 	$searchResults = "";
 	$searchCount = 0;
 	$search = "%" .$inData["search"] ."%";
-	//$searchType = $inData["searchPayload"];
 
 	#Connect to DataBase
 	$conn = new mysqli("localhost", "web", "Group232021Summ3r", "Contacks");
@@ -17,17 +16,17 @@ header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers
 	{
 		returnWithError( $conn->connect_error );
 	}
-	else{
-
-		//SQL STATMENT TO SEARCH THE USER CONTACTS
-		//$stmt = $conn->prepare("SELECT * FROM Contacts WHERE (Name = '$searchType') and ( Email = '$searchType') and ( Phone = '$searchType') and Login = ? ");	
+	else{	
 		
 		$searchType = $inData["searchType"];
 
 
 		if(strcmp($searchType, "name") == 0){
-			$stmt = $conn->prepare("SELECT * from Contacts where (FirstName like ? or LastName like ?) and Login=?");
-			$stmt->bind_param("sss", $search, $search, $inData["Login"]);
+			$temp = $search;
+			$searchArr = explode(" ", $temp, 2);
+
+			$stmt = $conn->prepare("SELECT * from Contacts where ((FirstName like ? or LastName like ?) or (FirstName like ? and LastName like ?)) and Login=?");
+			$stmt->bind_param("sssss", $search, $search, $searchArr[0], $searchArr[1], $inData["Login"]);
 			
 
 
