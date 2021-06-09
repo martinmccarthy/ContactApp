@@ -6,53 +6,48 @@ header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers
 	
 	$inData = getRequestInfo();
 	
-	
-	//$ID = $inData["contactID"];
-	//$ContactID = null;
 	$FirstName = $inData["FirstName"];
 	$LastName = $inData["LastName"];
 	$email = $inData["email"];
 	$phone = $inData["phone"];
-	$DateCreated = $inData["DateCreated"];
 	$DateCreated = date("Y-m-d H:i:s");
 	$Login = $inData["Login"];
+	$pinned = $inData["pinned"];
 
-	$Login = "";
-	
-	
+	//$Login = "";
+	$pinned = 0;	
+
 
 	$conn = new mysqli("localhost", "web", "Group232021Summ3r", "Contacks");
-	if ($conn->connect_error)
-	{
+	if ($conn->connect_error){
 		returnWithError( $conn->connect_error );
 	}
-	else
-	{
 
-		$stmt = $conn->prepare("INSERT into Contacts (FirstName, LastName, email, phone, DateCreated, Login) VALUES (?,?,?,?,?,?)");
-		$stmt->bind_param("ssssss", $FirstName, $LastName, $email, $phone, $DateCreated, $Login);
+	else{
+		
+		$stmt = $conn->prepare("INSERT into Contacts (FirstName, LastName, email, phone, DateCreated, Login, pinned) VALUES (?,?,?,?,?,?,?)");
+		$stmt->bind_param("sssssss", $FirstName, $LastName, $email, $phone, $DateCreated, $Login, $pinned);
 		$stmt->execute();
-		returnWithError($stmt->error);
 		$stmt->close();
 		$conn->close();
 
+		if($stmt->error){
+			returnWithError( $stmt->error );
+		}
 	}
 
-	function getRequestInfo()
-	{
+	function getRequestInfo(){
 		return json_decode(file_get_contents('php://input'), true);
 	}
 
-	function sendResultInfoAsJson( $obj )
-	{
+	function sendResultInfoAsJson( $obj ){
 		header('Content-type: application/json');
 		echo $obj;
 	}
 
-	function returnWithError( $err )
-	{
+	function returnWithError( $err ){
 		$retValue = '{"error":"' . $err . '"}';
 		sendResultInfoAsJson( $retValue );
 	}
-
 ?>
+
