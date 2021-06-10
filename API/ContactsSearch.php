@@ -9,7 +9,6 @@ header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers
 	$searchResults = "";
 	$searchCount = 0;
 	$search = "%" .$inData["search"] ."%";
-	//$searchType = $inData["searchPayload"];
 
 	#Connect to DataBase
 	$conn = new mysqli("localhost", "web", "Group232021Summ3r", "Contacks");
@@ -17,10 +16,7 @@ header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers
 	{
 		returnWithError( $conn->connect_error );
 	}
-	else{
-
-		//SQL STATMENT TO SEARCH THE USER CONTACTS
-		//$stmt = $conn->prepare("SELECT * FROM Contacts WHERE (Name = '$searchType') and ( Email = '$searchType') and ( Phone = '$searchType') and Login = ? ");	
+	else{	
 		
 		$searchType = $inData["searchType"];
 

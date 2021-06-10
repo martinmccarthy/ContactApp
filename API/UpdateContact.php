@@ -7,19 +7,14 @@ header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers
 	$inData = getRequestInfo();
 	
 	
-	//$ID = $inData["contactID"];
-	//$ContactID = null;
 	$FirstName = $inData["FirstName"];
 	$LastName = $inData["LastName"];
 	$email = $inData["email"];
 	$phone = $inData["phone"];
-	$DateCreated = $inData["DateCreated"];
-	$DateCreated = date("Y-m-d H:i:s");
 	$Login = $inData["Login"];
-
-	//$Login = "";
+	$pinned = $inData["pinned"];	
 	
-	
+	$oldEmail = $inData["oldEmail"];
 
 	$conn = new mysqli("localhost", "web", "Group232021Summ3r", "Contacks");
 	if ($conn->connect_error)
@@ -28,13 +23,24 @@ header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers
 	}
 	else
 	{
-		$stmt = $conn->prepare("UPDATE Contacts Set FirstName = ?, LastName = ?, email = ?, phone = ? where Login = ?");
-		$stmt->bind_param("sssss", $FirstName, $LastName, $email, $phone, $Login);
+		$stmt = $conn->prepare("UPDATE Contacts Set  FirstName = ?, LastName = ?, email = ?, phone = ?, pinned = ? where Login = ? and email = '$oldEmail' ");
+		$stmt->bind_param("ssssis", $FirstName, $LastName, $email, $phone, $pinned, $Login);
 		$stmt->execute();
-		returnWithError($stmt->error);
 		$stmt->close();
 		$conn->close();
+		
+
+		if($stmt->error)
+		{
+			returnWithError($stmt->error);
+		}
+		else
+		{
+			returnWithSuccess();
+		}
+		
 	}
+
 
 	function getRequestInfo()
 	{
@@ -51,6 +57,12 @@ header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers
 	{
 		$retValue = '{"error":"' . $err . '"}';
 		sendResultInfoAsJson( $retValue );
+	}
+
+	function returnWithSuccess()
+	{
+		$retValue = '{"success": "Contact Has Been Updated."}';
+		sendResultInfoAsJson($retValue);
 	}
 
 
