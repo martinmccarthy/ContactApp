@@ -26,17 +26,15 @@ header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers
 
 
 		if(strcmp($searchType, "name") == 0){
-			$stmt = $conn->prepare("SELECT * from Contacts where (FirstName like ? or LastName like ?) and Login=?");
-			$stmt->bind_param("sss", $search, $search, $inData["Login"]);
-			
+			$temp = $search;
+			$searchArr = explode(" ", $temp, 2);
 
-
-		}else if(strcmp($searchType, "email") == 0){
+			$stmt = $conn->prepare("SELECT * from Contacts where ((FirstName like ? or LastName like ?) or (FirstName like ? and LastName like ?)) and Login=?");
+			$stmt->bind_param("sssss", $search, $search, $searchArr[0], $searchArr[1], $inData["Login"]);
+		} else if(strcmp($searchType, "email") == 0){
 			$stmt = $conn->prepare("SELECT * from Contacts where email like ? and Login=?");
 			$stmt->bind_param("ss", $search, $inData["Login"]);
-			
-
-		}else{
+		} else{
 			$stmt = $conn->prepare("SELECT * from Contacts where phone like ? and Login=?");
 			$stmt->bind_param("ss", $search,$inData["Login"]);
 
